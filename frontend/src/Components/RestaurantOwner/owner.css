@@ -1,0 +1,114 @@
+/* Restaurant Owner Panel Styles */
+.owner-container {
+  min-height: 85vh;
+  background-color: #f8fafc;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.owner-sidebar {
+  background: #0f172a;
+  color: #f8fafc;
+  transition: all 0.25s ease-in-out;
+}
+
+.owner-sidebar .nav-link {
+  color: #94a3b8;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+}
+
+.owner-sidebar .nav-link:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.owner-sidebar .nav-link.active {
+  color: #0f172a;
+  background-color: #f59e0b;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.owner-stat-card {
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  padding: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.owner-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+}
+
+.owner-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.owner-table-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.badge-status-confirmed {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.badge-status-preparing {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.badge-status-pickup {
+  background-color: #ede9fe;
+  color: #6d28d9;
+}
+
+.badge-status-out {
+  background-color: #f0fdf4;
+  color: #15803d;
+}
+
+.badge-status-delivered {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-status-cancelled {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.dish-image-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+}
+
+.rest-cover-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+

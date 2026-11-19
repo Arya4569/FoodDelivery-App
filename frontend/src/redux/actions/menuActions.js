@@ -1,0 +1,89 @@
+ import API from "../../utils/api";
+
+ import {
+       getMenusRequest,
+       getMenusSuccess,
+       getMenusFail,
+
+       createMenuRequest,
+       createMenuSuccess,
+       createMenuFail,
+
+   addItemRequest,
+   addItemSuccess,
+   addItemFail,
+   clearMenuErrors
+ } from "../slices/menuSlice";
+
+ // GET MENUS
+ export const getMenus = (id) => async (dispatch) => {
+   try {
+     dispatch(getMenusRequest());
+
+    const response = await API.get(
+       `/v1/restaurants/${id}/menus`
+     );
+
+    dispatch(getMenusSuccess(response.data.data));
+   } catch (error) {
+     dispatch(
+       getMenusFail(
+         error.response?.data?.message || error.message
+       )
+     );
+   }
+ };
+
+ // CREATE MENU
+ export const createMenu =
+   ({ restaurantId, category }) =>
+   async (dispatch) => {
+     try {
+       dispatch(createMenuRequest());
+
+       const body = {
+         restaurant: restaurantId,
+         menu: [{ category, items: [] }],
+       };
+
+       const { data } = await API.post(
+         `/v1/restaurants/${restaurantId}/menus`,
+         body
+       );
+
+       dispatch(createMenuSuccess(data.data));
+     } catch (error) {
+       dispatch(
+         createMenuFail(
+           error.response?.data?.message || error.message
+         )
+       );
+     }
+   };
+
+ // ADD ITEM
+ export const addItemToMenu =
+   ({ menuId, category, foodItemId, restaurantId }) =>
+   async (dispatch) => {
+     try {
+       dispatch(addItemRequest());
+
+       const body = {
+         category,
+         foodItemId,
+       };
+
+       const { data } = await API.patch(
+         `/v1/restaurants/${restaurantId}/menus/${menuId}/addItem`,
+         body
+       );
+
+       dispatch(addItemSuccess(data.data));
+     } catch (error) {
+       dispatch(
+         addItemFail(
+           error.response?.data?.message || error.message
+         )
+       );
+     }
+   };

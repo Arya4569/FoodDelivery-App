@@ -1,0 +1,107 @@
+/* Delivery Partner Styles */
+.delivery-partner-wrapper {
+  min-height: 80vh;
+}
+
+.driver-hero-banner {
+  background: linear-gradient(135deg, #181824 0%, #2b2b3d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.status-toggle-badge {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.25s ease-in-out;
+}
+
+.status-toggle-badge:hover {
+  transform: translateY(-1px);
+}
+
+.pulse-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(40, 167, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+.stat-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: #ffffff;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.order-delivery-card {
+  border-left: 4px solid #ffb300;
+  transition: all 0.2s;
+}
+
+.order-delivery-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+}
+
+.map-container-box {
+  width: 100%;
+  height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #e2e8f0;
+}
+
+/* Custom Leaflet Marker Icons */
+.custom-leaflet-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  font-size: 20px;
+}
+
+.driver-marker-pulse {
+  background: #ffb300;
+  border: 3px solid #111;
+  animation: driver-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes driver-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 179, 0, 0.8);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 179, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 179, 0, 0);
+  }
+}
+
+.otp-box-input {
+  letter-spacing: 8px;
+  font-size: 24px;
+  text-align: center;
+  font-weight: 800;
+  border: 2px dashed #ffb300;
+  background: #fffdf5;
+}
+
