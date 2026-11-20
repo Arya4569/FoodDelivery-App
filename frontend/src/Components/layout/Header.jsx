@@ -163,9 +163,15 @@ const Header = () => {
         }
       }
     } catch (e) {
-      if (!silent) {
-        toast.info("Please select your area from the list below.");
-      }
+      const defaultLoc = {
+        area: "Downtown Food Street",
+        city: "Mumbai",
+        state: "Maharashtra",
+        fullAddress: "Downtown Food Street, Mumbai",
+        time: "25-30 mins",
+        isRealtime: false,
+      };
+      handleSelectLocation(defaultLoc);
     } finally {
       setIsLocating(false);
     }

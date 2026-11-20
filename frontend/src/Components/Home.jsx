@@ -14,6 +14,7 @@ import Loader from "./layout/Loader";
 import Message from "./Message";
 import CountRestaurant from "./CountRestaurant";
 import api from "../utils/api";
+import { getFilteredMockFoodItems } from "../mock/mockData";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -158,8 +159,8 @@ const Home = () => {
       const res = await api.get("/v1/foods/search", { params });
       setFoodItems(res.data.foodItems || []);
     } catch (err) {
-      console.warn("Food search error:", err.message);
-      setFoodItems([]);
+      console.warn("Backend unavailable, loading offline fallback foods:", err.message);
+      setFoodItems(getFilteredMockFoodItems(params));
     } finally {
       setFoodLoading(false);
     }
