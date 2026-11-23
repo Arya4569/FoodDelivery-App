@@ -1,4 +1,5 @@
 import api from "../../utils/api"
+import { getFilteredRestaurants } from "../../data/restaurantsData"
 
 import{
     getRestaurantsRequest,
@@ -35,8 +36,13 @@ export const getRestaurants = (keyword = "") => async (dispatch) => {
       })
     );
   } catch (error) {
+    console.warn("Backend API unavailable, loading full restaurant dataset:", error.message);
+    const list = getFilteredRestaurants(keyword);
     dispatch(
-      getRestaurantsFail(error.response?.data?.message || error.message)
+      getRestaurantsSuccess({
+        restaurants: list,
+        count: list.length,
+      })
     );
   }
 };

@@ -14,6 +14,7 @@ import Loader from "./layout/Loader";
 import Message from "./Message";
 import CountRestaurant from "./CountRestaurant";
 import api from "../utils/api";
+import { getFilteredFoodItems } from "../data/restaurantsData";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -46,47 +47,47 @@ const CUISINE_CATEGORIES = [
   {
     name: "Biryani",
     image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=250&auto=format&fit=crop&q=80",
-    keyword: "Biryani",
+    keyword: "biryani",
   },
   {
     name: "Pizza",
     image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=250&auto=format&fit=crop&q=80",
-    keyword: "Pizza",
+    keyword: "pizza",
   },
   {
     name: "Burger",
     image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=250&auto=format&fit=crop&q=80",
-    keyword: "Burger",
+    keyword: "burger",
   },
   {
     name: "North Indian",
     image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=250&auto=format&fit=crop&q=80",
-    keyword: "Indian",
+    keyword: "north indian",
   },
   {
     name: "Chinese & Momos",
     image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=250&auto=format&fit=crop&q=80",
-    keyword: "Momo",
+    keyword: "chinese",
   },
   {
     name: "Rolls & Wraps",
     image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=250&auto=format&fit=crop&q=80",
-    keyword: "Roll",
+    keyword: "roll",
   },
   {
     name: "Sweets & Chaat",
     image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=250&auto=format&fit=crop&q=80",
-    keyword: "Haldiram",
+    keyword: "chaat",
   },
   {
     name: "Desserts & Cakes",
     image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=250&auto=format&fit=crop&q=80",
-    keyword: "Sweet",
+    keyword: "dessert",
   },
   {
     name: "Coffee & Drinks",
     image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=250&auto=format&fit=crop&q=80",
-    keyword: "Coffee",
+    keyword: "coffee",
   },
 ];
 
@@ -172,8 +173,8 @@ const Home = () => {
       const res = await api.get("/v1/foods/search", { params });
       setFoodItems(res.data.foodItems || []);
     } catch (err) {
-      console.warn("Food search error:", err.message);
-      setFoodItems([]);
+      console.warn("Food search API unavailable, loading fallback foods:", err.message);
+      setFoodItems(getFilteredFoodItems(params));
     } finally {
       setFoodLoading(false);
     }
@@ -282,20 +283,56 @@ const Home = () => {
           <div className="col-12 col-md-4">
             <div
               className="promo-hero-card promo-hero-orange"
+              style={{
+                background: "linear-gradient(135deg, #7c2d12 0%, #c2410c 45%, #ea580c 100%)",
+                boxShadow: "0 8px 24px rgba(194, 65, 12, 0.35)",
+                color: "#ffffff"
+              }}
               onClick={() => {
                 setActiveTab("dishes");
-                navigate("/v1/restaurants/search/Pizza");
+                navigate("/v1/restaurants/search/pizza");
               }}
               title="Click to explore 50% OFF Deals"
             >
               <div>
-                <span className="promo-glass-badge">⚡ SPECIAL DEAL</span>
-                <h5 className="promo-hero-title">Flat 50% OFF</h5>
-                <p className="promo-hero-subtitle">Craving cheesy pizzas & burgers?</p>
-                <div className="promo-coupon-tag">USE: WELCOME50</div>
+                <span
+                  className="promo-glass-badge"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.25)",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255, 255, 255, 0.45)"
+                  }}
+                >
+                  ⚡ SPECIAL DEAL
+                </span>
+                <h5
+                  className="promo-hero-title"
+                  style={{ color: "#ffffff", textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
+                >
+                  Flat 50% OFF
+                </h5>
+                <p
+                  className="promo-hero-subtitle"
+                  style={{ color: "rgba(255, 255, 255, 0.95)" }}
+                >
+                  Craving cheesy pizzas & burgers?
+                </p>
+                <div
+                  className="promo-coupon-tag"
+                  style={{
+                    background: "rgba(0, 0, 0, 0.35)",
+                    color: "#ffffff",
+                    border: "1px dashed rgba(255, 255, 255, 0.7)"
+                  }}
+                >
+                  USE: WELCOME50
+                </div>
               </div>
               <div>
-                <span className="promo-cta-btn">
+                <span
+                  className="promo-cta-btn"
+                  style={{ background: "#ffffff", color: "#0f172a", fontWeight: "700" }}
+                >
                   Order Now <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: "0.68rem" }} />
                 </span>
               </div>
@@ -311,17 +348,53 @@ const Home = () => {
           <div className="col-12 col-md-4">
             <div
               className="promo-hero-card promo-hero-teal"
+              style={{
+                background: "linear-gradient(135deg, #064e3b 0%, #0d9488 45%, #14b8a6 100%)",
+                boxShadow: "0 8px 24px rgba(13, 148, 136, 0.35)",
+                color: "#ffffff"
+              }}
               onClick={() => navigate("/")}
               title="Click to explore Free Delivery restaurants"
             >
               <div>
-                <span className="promo-glass-badge">⚡ SUPERFAST</span>
-                <h5 className="promo-hero-title">Free Delivery</h5>
-                <p className="promo-hero-subtitle">Zero delivery fee on orders above ₹199</p>
-                <div className="promo-coupon-tag">NO CODE NEEDED</div>
+                <span
+                  className="promo-glass-badge"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.25)",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255, 255, 255, 0.45)"
+                  }}
+                >
+                  ⚡ SUPERFAST
+                </span>
+                <h5
+                  className="promo-hero-title"
+                  style={{ color: "#ffffff", textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
+                >
+                  Free Delivery
+                </h5>
+                <p
+                  className="promo-hero-subtitle"
+                  style={{ color: "rgba(255, 255, 255, 0.95)" }}
+                >
+                  Zero delivery fee on orders above ₹199
+                </p>
+                <div
+                  className="promo-coupon-tag"
+                  style={{
+                    background: "rgba(0, 0, 0, 0.35)",
+                    color: "#ffffff",
+                    border: "1px dashed rgba(255, 255, 255, 0.7)"
+                  }}
+                >
+                  NO CODE NEEDED
+                </div>
               </div>
               <div>
-                <span className="promo-cta-btn">
+                <span
+                  className="promo-cta-btn"
+                  style={{ background: "#ffffff", color: "#0f172a", fontWeight: "700" }}
+                >
                   Explore Deals <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: "0.68rem" }} />
                 </span>
               </div>
@@ -337,20 +410,56 @@ const Home = () => {
           <div className="col-12 col-md-4">
             <div
               className="promo-hero-card promo-hero-purple"
+              style={{
+                background: "linear-gradient(135deg, #3b0764 0%, #6b21a8 45%, #7c3aed 100%)",
+                boxShadow: "0 8px 24px rgba(107, 33, 168, 0.35)",
+                color: "#ffffff"
+              }}
               onClick={() => {
                 setActiveTab("dishes");
-                navigate("/v1/restaurants/search/Biryani");
+                navigate("/v1/restaurants/search/biryani");
               }}
               title="Click to explore Gourmet Biryanis"
             >
               <div>
-                <span className="promo-glass-badge">👑 TOP PICKS</span>
-                <h5 className="promo-hero-title">Royal Biryanis</h5>
-                <p className="promo-hero-subtitle">Handcrafted dum biryanis from ₹199</p>
-                <div className="promo-coupon-tag">BEST RATED CHEFS</div>
+                <span
+                  className="promo-glass-badge"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.25)",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255, 255, 255, 0.45)"
+                  }}
+                >
+                  👑 TOP PICKS
+                </span>
+                <h5
+                  className="promo-hero-title"
+                  style={{ color: "#ffffff", textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
+                >
+                  Royal Biryanis
+                </h5>
+                <p
+                  className="promo-hero-subtitle"
+                  style={{ color: "rgba(255, 255, 255, 0.95)" }}
+                >
+                  Handcrafted dum biryanis from ₹199
+                </p>
+                <div
+                  className="promo-coupon-tag"
+                  style={{
+                    background: "rgba(0, 0, 0, 0.35)",
+                    color: "#ffffff",
+                    border: "1px dashed rgba(255, 255, 255, 0.7)"
+                  }}
+                >
+                  BEST RATED CHEFS
+                </div>
               </div>
               <div>
-                <span className="promo-cta-btn">
+                <span
+                  className="promo-cta-btn"
+                  style={{ background: "#ffffff", color: "#0f172a", fontWeight: "700" }}
+                >
                   Taste Now <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: "0.68rem" }} />
                 </span>
               </div>

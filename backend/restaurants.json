@@ -376,7 +376,16 @@
           "url": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_366/1abb89624b491497c8cff182d95ac457"
         }
       ],
-      "createdAt": "2024-06-13T12:00:00.000Z"
+      "createdAt": "2024-06-13T12:00:00.000Z",
+      "cuisines": "North Indian, South Indian, Street Food, Sweets, Chaat",
+      "tags": [
+        "chaat",
+        "sweets",
+        "indian",
+        "thali",
+        "dessert",
+        "north indian"
+      ]
     },
     {
       "location": {
@@ -752,7 +761,15 @@
           "url": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_264,h_288,c_fill/e6bfe20a8b03779efebeb04eae9a86c6"
         }
       ],
-      "createdAt": "2023-06-17T12:00:00.000Z"
+      "createdAt": "2023-06-17T12:00:00.000Z",
+      "cuisines": "Biryani, North Indian, Mughlai, Kebabs",
+      "tags": [
+        "biryani",
+        "kebabs",
+        "mughlai",
+        "chicken",
+        "indian"
+      ]
     },
     {
       "location": {
@@ -1128,7 +1145,14 @@
           "url": "https://upload.wikimedia.org/wikipedia/en/e/e6/Logo_of_Dindigul_Thalappakatti_Restaurant.png"
         }
       ],
-      "createdAt": "2023-01-01T00:00:00.000Z"
+      "createdAt": "2023-01-01T00:00:00.000Z",
+      "cuisines": "Biryani, South Indian, Non-Veg Specials",
+      "tags": [
+        "biryani",
+        "south indian",
+        "mutton",
+        "chicken"
+      ]
     },
     {
       "location": {
@@ -1519,7 +1543,15 @@
           "url": "https://shorturl.at/6aIhg"
         }
       ],
-      "createdAt": "2024-06-18T00:00:00.000Z"
+      "createdAt": "2024-06-18T00:00:00.000Z",
+      "cuisines": "Burgers, Fried Chicken, Fast Food, Rolls, Wings",
+      "tags": [
+        "burger",
+        "chicken",
+        "fast food",
+        "roll",
+        "wings"
+      ]
     },
     {
       "location": {
@@ -1895,7 +1927,14 @@
           "url": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/113112095.jpg?k=1c3124fc8057370e97519147fbfd26447c4d1fc38a3ccb47e9d8c972ff2e317a&o=&hp=1"
         }
       ],
-      "createdAt": "2024-06-18T00:00:00.000Z"
+      "createdAt": "2024-06-18T00:00:00.000Z",
+      "cuisines": "North Indian, Mughlai, Biryani, Fast Food",
+      "tags": [
+        "biryani",
+        "north indian",
+        "kebabs",
+        "indian"
+      ]
     },
     {
       "location": {
@@ -2271,7 +2310,14 @@
           "url": "https://shorturl.at/Sdwal"
         }
       ],
-      "createdAt": "2026-06-29T10:59:26.364Z"
+      "createdAt": "2026-06-29T10:59:26.364Z",
+      "cuisines": "North Indian, Mughlai, Kebabs, Biryani",
+      "tags": [
+        "north indian",
+        "biryani",
+        "kebabs",
+        "mughlai"
+      ]
     },
     {
       "location": {
@@ -2647,7 +2693,15 @@
           "url": "https://tse4.mm.bing.net/th?id=OIG2.HoKkNfx8R_.WKzdDzd2z&pid=ImgGn"
         }
       ],
-      "createdAt": "2026-06-29T10:59:26.364Z"
+      "createdAt": "2026-06-29T10:59:26.364Z",
+      "cuisines": "Biryani, Andhra Meals, North Indian",
+      "tags": [
+        "biryani",
+        "andhra",
+        "spicy",
+        "chicken",
+        "indian"
+      ]
     },
     {
       "location": {
@@ -3028,7 +3082,16 @@
           "url": "https://tb-static.uber.com/prod/image-proc/processed_images/f836ab1bbffb846981d3aa8776d0361e/fb86662148be855d931b37d6c1e5fcbe.jpeg"
         }
       ],
-      "createdAt": "2026-06-29T10:59:26.364Z"
+      "createdAt": "2026-06-29T10:59:26.364Z",
+      "cuisines": "Japanese, Asian, Sushi, Noodles, Chinese",
+      "tags": [
+        "sushi",
+        "japanese",
+        "chinese",
+        "momo",
+        "noodles",
+        "asian"
+      ]
     },
     {
       "location": {
@@ -3063,6 +3126,14 @@
           "rating": 4,
           "Comment": "Fast 20 minute delivery, garlic bread was top notch."
         }
+      ],
+      "cuisines": "Pizzas, Fast Food, Italian, Garlic Breads, Pastas",
+      "tags": [
+        "pizza",
+        "italian",
+        "fast food",
+        "cheese",
+        "breads"
       ]
     },
     {
@@ -3098,6 +3169,14 @@
           "rating": 4,
           "Comment": "Juicy burger patties and quick packaging."
         }
+      ],
+      "cuisines": "Burgers, American, Fast Food, Crispy Fries, Shakes",
+      "tags": [
+        "burger",
+        "fast food",
+        "fries",
+        "shakes",
+        "american"
       ]
     },
     {
@@ -3133,6 +3212,15 @@
           "rating": 5,
           "Comment": "Healthy paneer tikka sub, perfect for guilt-free meal."
         }
+      ],
+      "cuisines": "Healthy Food, Sandwiches, Subs, Salads, Wraps",
+      "tags": [
+        "roll",
+        "wrap",
+        "salad",
+        "sandwich",
+        "healthy",
+        "sub"
       ]
     },
     {
@@ -3168,6 +3256,14 @@
           "rating": 5,
           "Comment": "Packaging feels like a royal royal gift. Taste 10/10."
         }
+      ],
+      "cuisines": "Royal Biryani, Mughlai, Shahi Kebabs, Desserts",
+      "tags": [
+        "biryani",
+        "mughlai",
+        "royal",
+        "kebab",
+        "dessert"
       ]
     },
     {
@@ -3203,6 +3299,14 @@
           "rating": 5,
           "Comment": "Pan-fried momos in schezwan sauce are heavenly."
         }
+      ],
+      "cuisines": "Momos, Chinese, Asian, Noodles, Dumplings",
+      "tags": [
+        "momo",
+        "chinese",
+        "dumplings",
+        "noodles",
+        "asian"
       ]
     },
     {
@@ -3238,6 +3342,14 @@
           "rating": 5,
           "Comment": "100% natural, pure fruit flavor with no artificial taste."
         }
+      ],
+      "cuisines": "Artisanal Ice Cream, Fruit Scoops, Desserts",
+      "tags": [
+        "ice cream",
+        "dessert",
+        "sweet",
+        "fruits",
+        "shake"
       ]
     },
     {
@@ -3273,6 +3385,14 @@
           "rating": 4,
           "Comment": "Fresh blueberry muffin and signature hot cappuccino."
         }
+      ],
+      "cuisines": "Coffee, Cafe, Frappuccinos, Bakery, Desserts",
+      "tags": [
+        "coffee",
+        "drinks",
+        "cafe",
+        "bakery",
+        "dessert"
       ]
     },
     {
@@ -3308,6 +3428,15 @@
           "rating": 4,
           "Comment": "Clean pure veg dining with generous portion sizes."
         }
+      ],
+      "cuisines": "Pure Veg, Pav Bhaji, South Indian, Chaat, North Indian",
+      "tags": [
+        "chaat",
+        "pav bhaji",
+        "south indian",
+        "north indian",
+        "indian",
+        "thali"
       ]
     },
     {
@@ -3343,6 +3472,13 @@
           "rating": 4,
           "Comment": "Great value for money giant slice pizzas."
         }
+      ],
+      "cuisines": "Pizzas, Fast Food, Italian, Cheesy Breads",
+      "tags": [
+        "pizza",
+        "italian",
+        "fast food",
+        "garlic bread"
       ]
     },
     {
@@ -3378,6 +3514,14 @@
           "rating": 4,
           "Comment": "Paneer Tikka Roll with mint dip was delicious and hot."
         }
+      ],
+      "cuisines": "Rolls & Wraps, Fast Food, North Indian, Bowls",
+      "tags": [
+        "roll",
+        "wrap",
+        "fast food",
+        "rolls & wraps",
+        "indian"
       ]
     },
     {
@@ -3413,6 +3557,14 @@
           "rating": 5,
           "Comment": "Rich, luscious North Indian curries and soft garlic naans."
         }
+      ],
+      "cuisines": "North Indian, Mughlai, Tandoori Kebabs, Biryani",
+      "tags": [
+        "north indian",
+        "indian",
+        "biryani",
+        "kebabs",
+        "mughlai"
       ]
     },
     {
@@ -3448,6 +3600,14 @@
           "rating": 5,
           "Comment": "Crunchy warm waffle with warm melted Nutella."
         }
+      ],
+      "cuisines": "Waffles, Pancakes, Desserts, Shakes, Bakery",
+      "tags": [
+        "waffle",
+        "dessert",
+        "sweet",
+        "chocolate",
+        "cakes"
       ]
     },
     {
@@ -3483,6 +3643,14 @@
           "rating": 4,
           "Comment": "Unlimited starters and delicious kulfi platter."
         }
+      ],
+      "cuisines": "Barbeque, Kebabs, Biryani, North Indian, Platters",
+      "tags": [
+        "bbq",
+        "biryani",
+        "kebabs",
+        "north indian",
+        "buffet"
       ]
     },
     {
@@ -3518,6 +3686,15 @@
           "rating": 5,
           "Comment": "Crisp Punjabi samosas with fresh mint dip."
         }
+      ],
+      "cuisines": "Chai, Hot Teas, Snacks, Samosas, Beverages",
+      "tags": [
+        "coffee",
+        "chai",
+        "drinks",
+        "beverages",
+        "tea",
+        "snacks"
       ]
     },
     {
@@ -3553,6 +3730,14 @@
           "rating": 4,
           "Comment": "Rich thick sundaes with warm brownie."
         }
+      ],
+      "cuisines": "Ice Cream, Sundaes, Shakes, Desserts, Cakes",
+      "tags": [
+        "ice cream",
+        "dessert",
+        "sweet",
+        "sundaes",
+        "cakes"
       ]
     },
     {
@@ -3588,6 +3773,15 @@
           "rating": 4,
           "Comment": "Hot McPuff and classic soft serve sundae."
         }
+      ],
+      "cuisines": "Burgers, Fries, Fast Food, McCafe, Desserts",
+      "tags": [
+        "burger",
+        "fries",
+        "fast food",
+        "mcdonald",
+        "dessert",
+        "drinks"
       ]
     }
   ]

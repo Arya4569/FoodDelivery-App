@@ -19,7 +19,13 @@ function getFallbackRestaurants(query = {}) {
     // Filter by keyword if provided
     if (query.keyword) {
       const kw = query.keyword.trim().toLowerCase();
-      list = list.filter((r) => r.name && r.name.toLowerCase().includes(kw));
+      list = list.filter((r) => {
+        const nameMatch = r.name && r.name.toLowerCase().includes(kw);
+        const cuisineMatch = r.cuisines && r.cuisines.toLowerCase().includes(kw);
+        const addressMatch = r.address && r.address.toLowerCase().includes(kw);
+        const tagsMatch = Array.isArray(r.tags) && r.tags.some((t) => t.toLowerCase().includes(kw));
+        return nameMatch || cuisineMatch || addressMatch || tagsMatch;
+      });
     }
 
     // Filter by isVeg if provided

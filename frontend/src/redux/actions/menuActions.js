@@ -1,6 +1,7 @@
- import API from "../../utils/api";
+import API from "../../utils/api";
+import { allMenus, allFoodItems } from "../../data/restaurantsData";
 
- import {
+import {
        getMenusRequest,
        getMenusSuccess,
        getMenusFail,
@@ -26,11 +27,16 @@
 
     dispatch(getMenusSuccess(response.data.data || []));
    } catch (error) {
-     dispatch(
-       getMenusFail(
-         error.response?.data?.message || error.message
-       )
-     );
+     console.warn("Backend API unreachable, loading fallback menu for restaurant:", id);
+     const fallback = allMenus[id] || [
+       {
+         _id: `menu_${id}`,
+         name: "Recommended Specials",
+         restaurant: id,
+         foodItems: allFoodItems.filter(f => (f.restaurant?._id || f.restaurant) === id).slice(0, 4)
+       }
+     ];
+     dispatch(getMenusSuccess(fallback));
    }
  };
 

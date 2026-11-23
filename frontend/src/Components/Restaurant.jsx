@@ -121,7 +121,7 @@ const Restaurant = ({ restaurant }) => {
 
             {/* Cuisines Subtitle */}
             <p className="text-muted small mb-1 text-truncate" style={{ fontSize: "0.85rem" }}>
-              {(() => {
+              {restaurant.cuisines || (() => {
                 const n = (restaurant.name || "").toLowerCase();
                 if (n.includes("pizza")) return "Pizzas, Fast Food, Italian";
                 if (n.includes("burger")) return "Burgers, American, Fast Food";
