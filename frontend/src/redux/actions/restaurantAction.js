@@ -1,5 +1,4 @@
 import api from "../../utils/api"
-import { getFilteredMockRestaurants } from "../../mock/mockData"
 
 import{
     getRestaurantsRequest,
@@ -31,18 +30,13 @@ export const getRestaurants = (keyword = "") => async (dispatch) => {
 
     dispatch(
       getRestaurantsSuccess({
-        restaurants: data.restaurant,
-        count: data.count,
+        restaurants: data.restaurant || [],
+        count: data.count || 0,
       })
     );
   } catch (error) {
-    console.warn("Backend unavailable, loading offline fallback restaurants:", error.message);
-    const fallbackRestaurants = getFilteredMockRestaurants(keyword);
     dispatch(
-      getRestaurantsSuccess({
-        restaurants: fallbackRestaurants,
-        count: fallbackRestaurants.length,
-      })
+      getRestaurantsFail(error.response?.data?.message || error.message)
     );
   }
 };

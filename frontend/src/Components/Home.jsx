@@ -14,7 +14,6 @@ import Loader from "./layout/Loader";
 import Message from "./Message";
 import CountRestaurant from "./CountRestaurant";
 import api from "../utils/api";
-import { getFilteredMockFoodItems } from "../mock/mockData";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -33,6 +32,8 @@ import {
   faCheck,
   faSpinner,
   faSearch,
+  faBagShopping,
+  faIndianRupeeSign,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Food categories like Swiggy / Zomato with authentic HD food photography
@@ -103,6 +104,18 @@ const Home = () => {
 
   const { cartItems = [] } = useSelector((state) => state.carts || {});
 
+  // Total cart count & price for floating quick bar
+  const totalCartCount = useMemo(() => {
+    return cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0);
+  }, [cartItems]);
+
+  const totalCartPrice = useMemo(() => {
+    return cartItems.reduce((acc, item) => {
+      const price = item.foodItem?.price || item.price || 0;
+      return acc + (item.quantity || 1) * price;
+    }, 0);
+  }, [cartItems]);
+
   // Tab View: 'restaurants' or 'dishes'
   const [activeTab, setActiveTab] = useState(keyword ? "dishes" : "restaurants");
   const [activeSort, setActiveSort] = useState("default");
@@ -159,8 +172,8 @@ const Home = () => {
       const res = await api.get("/v1/foods/search", { params });
       setFoodItems(res.data.foodItems || []);
     } catch (err) {
-      console.warn("Backend unavailable, loading offline fallback foods:", err.message);
-      setFoodItems(getFilteredMockFoodItems(params));
+      console.warn("Food search error:", err.message);
+      setFoodItems([]);
     } finally {
       setFoodLoading(false);
     }
@@ -710,6 +723,26 @@ const Home = () => {
             fetchDishes();
           }}
         />
+      )}
+
+      {/* Sticky Bottom Cart Bar (Swiggy / Zomato style) */}
+      {totalCartCount > 0 && (
+        <div className="sticky-bottom-cart-bar shadow-lg p-3 rounded-4 bg-dark text-white d-flex align-items-center justify-content-between">
+          <div className="d-flex align-items-center">
+            <span className="cart-floating-icon me-3 bg-success rounded-circle p-2">
+              <FontAwesomeIcon icon={faBagShopping} />
+            </span>
+            <div>
+              <div className="fw-bold fs-6">
+                {totalCartCount} {totalCartCount === 1 ? "Item" : "Items"} | <FontAwesomeIcon icon={faIndianRupeeSign} size="xs" /> {totalCartPrice}
+              </div>
+              <small className="text-white-50">Extra charges may apply</small>
+            </div>
+          </div>
+          <Link to="/cart" className="btn btn-success fw-bold px-4 rounded-pill d-flex align-items-center">
+            View Cart <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
+          </Link>
+        </div>
       )}
     </div>
   );

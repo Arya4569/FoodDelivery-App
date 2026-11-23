@@ -3,6 +3,7 @@ const Order = require("../models/order");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsync = require("../middlewares/catchAsyncErrors");
 const APIFeatures = require("../utils/apiFeatures");
+const mongoose = require("mongoose");
 
 // Search Food Items with Filters & Pagination
 exports.searchFoodItems = catchAsync(async (req, res, next) => {
@@ -65,22 +66,97 @@ exports.searchFoodItems = catchAsync(async (req, res, next) => {
   const limitNum = Math.max(1, parseInt(limit, 10));
   const skip = (pageNum - 1) * limitNum;
 
-  const totalCount = await Fooditem.countDocuments(query);
-  const foodItems = await Fooditem.find(query)
-    .populate("restaurant", "name address location ratings images isVeg")
-    .populate("menu", "name")
-    .sort(sortOption)
-    .skip(skip)
-    .limit(limitNum);
+  if (mongoose.connection.readyState === 1) {
+    try {
+      const totalCount = await Fooditem.countDocuments(query);
+      const foodItems = await Fooditem.find(query)
+        .populate("restaurant", "name address location ratings images isVeg")
+        .populate("menu", "name")
+        .sort(sortOption)
+        .skip(skip)
+        .limit(limitNum);
 
-  res.status(200).json({
-    success: true,
-    count: foodItems.length,
-    totalCount,
-    totalPages: Math.ceil(totalCount / limitNum),
-    currentPage: pageNum,
-    foodItems,
-  });
+      return res.status(200).json({
+        success: true,
+        count: foodItems.length,
+        totalCount,
+        totalPages: Math.ceil(totalCount / limitNum),
+        currentPage: pageNum,
+        foodItems,
+      });
+    } catch (e) {
+      console.warn("DB query failed in searchFoodItems, using local dataset:", e.message);
+    }
+  }
+
+  // Fallback to local dataset from sampleMenus.json
+  try {
+    const sampleMenus = require("../sampleMenus.json");
+    const restaurantsData = require("../restaurants.json").restaurant;
+    let allItems = [];
+    Object.keys(sampleMenus).forEach((rId) => {
+      const r = restaurantsData.find((item) => item._id === rId);
+      (sampleMenus[rId] || []).forEach((menu) => {
+        (menu.foodItems || []).forEach((food) => {
+          allItems.push({
+            ...food,
+            restaurant: r || { _id: rId, name: "Restaurant" },
+            menu: { _id: menu._id, name: menu.name },
+          });
+        });
+      });
+    });
+
+    if (keyword && keyword.trim()) {
+      const kw = keyword.toLowerCase().trim();
+      allItems = allItems.filter(
+        (f) =>
+          (f.name && f.name.toLowerCase().includes(kw)) ||
+          (f.description && f.description.toLowerCase().includes(kw))
+      );
+    }
+    if (category && category !== "All") {
+      const cat = category.toLowerCase().trim();
+      allItems = allItems.filter(
+        (f) =>
+          (f.menu?.name && f.menu.name.toLowerCase().includes(cat)) ||
+          (f.name && f.name.toLowerCase().includes(cat))
+      );
+    }
+    if (isVeg !== undefined && isVeg !== "") {
+      const isV = isVeg === "true" || isVeg === true;
+      allItems = allItems.filter((f) => f.isVeg === isV);
+    }
+    if (minPrice) allItems = allItems.filter((f) => f.price >= Number(minPrice));
+    if (maxPrice) allItems = allItems.filter((f) => f.price <= Number(maxPrice));
+    if (minRating) allItems = allItems.filter((f) => (f.ratings || 0) >= Number(minRating));
+    if (restaurantId) allItems = allItems.filter((f) => f.restaurant?._id === restaurantId);
+
+    if (sortBy === "price_asc") allItems.sort((a, b) => a.price - b.price);
+    else if (sortBy === "price_desc") allItems.sort((a, b) => b.price - a.price);
+    else if (sortBy === "rating_desc") allItems.sort((a, b) => (b.ratings || 0) - (a.ratings || 0));
+
+    const totalCount = allItems.length;
+    const pagedItems = allItems.slice(skip, skip + limitNum);
+
+    return res.status(200).json({
+      success: true,
+      count: pagedItems.length,
+      totalCount,
+      totalPages: Math.ceil(totalCount / limitNum),
+      currentPage: pageNum,
+      foodItems: pagedItems,
+    });
+  } catch (err) {
+    return res.status(200).json({
+      success: true,
+      count: 0,
+      totalCount: 0,
+      totalPages: 0,
+      currentPage: pageNum,
+      foodItems: [],
+    });
+  }
 });
 
 // Add Review to Food Item

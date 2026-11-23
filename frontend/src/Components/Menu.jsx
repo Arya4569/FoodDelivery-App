@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { getMenus } from "../redux/actions/menuActions";
 import Fooditem from "./Fooditem";
+import api from "../utils/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
@@ -26,20 +27,41 @@ const Menu = () => {
   const [menuSearch, setMenuSearch] = useState("");
   const [menuVegOnly, setMenuVegOnly] = useState(false);
 
+  const [restaurantDetail, setRestaurantDetail] = useState(null);
+
   useEffect(() => {
     dispatch(getMenus(id));
   }, [dispatch, id]);
 
+  useEffect(() => {
+    const found = restaurants.find((r) => r._id === id);
+    if (found) {
+      setRestaurantDetail(found);
+    } else if (id) {
+      api
+        .get(`/v1/restaurants/${id}`)
+        .then((res) => {
+          setRestaurantDetail(res.data?.restaurant || res.data?.data || null);
+        })
+        .catch((err) => {
+          console.error("Failed to load restaurant details from backend:", err.message);
+        });
+    }
+  }, [restaurants, id]);
+
   // Find restaurant details
   const currentRestaurant = useMemo(() => {
-    return restaurants.find((r) => r._id === id) || {
-      name: "Gourmet Restaurant",
-      address: "FC Road, Pune",
-      ratings: 4.5,
-      numOfReviews: 120,
-      isVeg: false,
-    };
-  }, [restaurants, id]);
+    return (
+      restaurantDetail ||
+      restaurants.find((r) => r._id === id) || {
+        name: "Restaurant",
+        address: "",
+        ratings: 0,
+        numOfReviews: 0,
+        isVeg: false,
+      }
+    );
+  }, [restaurantDetail, restaurants, id]);
 
   // Calculate cart total & items count
   const totalCartCount = useMemo(() => {

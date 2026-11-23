@@ -889,5 +889,633 @@
         }
       ]
     }
+  ],
+  "66716cb0e1a78e67dc8c8dc1": [
+    {
+      "_id": "menu_dominos_1",
+      "name": "Bestseller Pizzas",
+      "restaurant": "66716cb0e1a78e67dc8c8dc1",
+      "foodItems": [
+        {
+          "_id": "food_dom_1",
+          "name": "Farmhouse Loaded Pizza",
+          "price": 399,
+          "description": "Delightful combination of onion, capsicum, tomato and grilled mushroom",
+          "ratings": 4.5,
+          "stock": 60,
+          "isVeg": true,
+          "numberOfReviews": 45,
+          "reviews": [],
+          "menu": "menu_dominos_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc1",
+          "image": [
+            {
+              "public_id": "dom_1",
+              "url": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_dom_2",
+          "name": "Peppy Paneer Pizza",
+          "price": 429,
+          "description": "Chunky paneer with crisp capsicum and spicy red paprika",
+          "ratings": 4.6,
+          "stock": 50,
+          "isVeg": true,
+          "numberOfReviews": 38,
+          "reviews": [],
+          "menu": "menu_dominos_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc1",
+          "image": [
+            {
+              "public_id": "dom_2",
+              "url": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_dom_3",
+          "name": "Chicken Golden Delight",
+          "price": 499,
+          "description": "Barbeque chicken with golden corn and extra mozzarella cheese",
+          "ratings": 4.7,
+          "stock": 40,
+          "isVeg": false,
+          "numberOfReviews": 52,
+          "reviews": [],
+          "menu": "menu_dominos_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc1",
+          "image": [
+            {
+              "public_id": "dom_3",
+              "url": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "menu_dominos_2",
+      "name": "Garlic Breads & Sides",
+      "restaurant": "66716cb0e1a78e67dc8c8dc1",
+      "foodItems": [
+        {
+          "_id": "food_dom_4",
+          "name": "Stuffed Garlic Bread",
+          "price": 159,
+          "description": "Baked bread with jalapeños, sweet corn and gooey cheese dip inside",
+          "ratings": 4.8,
+          "stock": 80,
+          "isVeg": true,
+          "numberOfReviews": 60,
+          "reviews": [],
+          "menu": "menu_dominos_2",
+          "restaurant": "66716cb0e1a78e67dc8c8dc1",
+          "image": [
+            {
+              "public_id": "dom_4",
+              "url": "https://images.unsplash.com/photo-1619895092538-128341789043?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dc2": [
+    {
+      "_id": "menu_bk_1",
+      "name": "Whopper Meals",
+      "restaurant": "66716cb0e1a78e67dc8c8dc2",
+      "foodItems": [
+        {
+          "_id": "food_bk_1",
+          "name": "Crispy Veg Whopper",
+          "price": 189,
+          "description": "Signature crispy patty with fresh lettuce, onions, pickles and BK sauce",
+          "ratings": 4.4,
+          "stock": 70,
+          "isVeg": true,
+          "numberOfReviews": 32,
+          "reviews": [],
+          "menu": "menu_bk_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc2",
+          "image": [
+            {
+              "public_id": "bk_1",
+              "url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_bk_2",
+          "name": "Chicken Whopper Double",
+          "price": 269,
+          "description": "Double flame-grilled chicken patties layered with cheese and fresh veggies",
+          "ratings": 4.7,
+          "stock": 50,
+          "isVeg": false,
+          "numberOfReviews": 44,
+          "reviews": [],
+          "menu": "menu_bk_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc2",
+          "image": [
+            {
+              "public_id": "bk_2",
+              "url": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_bk_3",
+          "name": "Peri Peri Fries (King)",
+          "price": 129,
+          "description": "Crispy french fries tossed in spicy peri peri seasoning mix",
+          "ratings": 4.6,
+          "stock": 90,
+          "isVeg": true,
+          "numberOfReviews": 50,
+          "reviews": [],
+          "menu": "menu_bk_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc2",
+          "image": [
+            {
+              "public_id": "bk_3",
+              "url": "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dc4": [
+    {
+      "_id": "menu_behrouz_1",
+      "name": "Royal Biryani Platters",
+      "restaurant": "66716cb0e1a78e67dc8c8dc4",
+      "foodItems": [
+        {
+          "_id": "food_beh_1",
+          "name": "Dum Gosht Biryani (Mutton)",
+          "price": 449,
+          "description": "Succulent pieces of marinated mutton slow cooked with aged aromatic basmati rice",
+          "ratings": 4.8,
+          "stock": 45,
+          "isVeg": false,
+          "numberOfReviews": 72,
+          "reviews": [],
+          "menu": "menu_behrouz_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc4",
+          "image": [
+            {
+              "public_id": "beh_1",
+              "url": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_beh_2",
+          "name": "Zaikedaar Paneer Biryani",
+          "price": 339,
+          "description": "Fresh cottage cheese cubes marinated in rich royal spices with long grain basmati rice",
+          "ratings": 4.6,
+          "stock": 55,
+          "isVeg": true,
+          "numberOfReviews": 54,
+          "reviews": [],
+          "menu": "menu_behrouz_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc4",
+          "image": [
+            {
+              "public_id": "beh_2",
+              "url": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dc5": [
+    {
+      "_id": "menu_momo_1",
+      "name": "Steamed & Pan Fried Momos",
+      "restaurant": "66716cb0e1a78e67dc8c8dc5",
+      "foodItems": [
+        {
+          "_id": "food_momo_1",
+          "name": "Darjeeling Chicken Momos (6 Pcs)",
+          "price": 169,
+          "description": "Authentic juicy chicken dumplings served with spicy garlic tomato chutney",
+          "ratings": 4.5,
+          "stock": 75,
+          "isVeg": false,
+          "numberOfReviews": 48,
+          "reviews": [],
+          "menu": "menu_momo_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc5",
+          "image": [
+            {
+              "public_id": "momo_1",
+              "url": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_momo_2",
+          "name": "Cheese & Corn Momos (6 Pcs)",
+          "price": 179,
+          "description": "Crispy pan-fried momos bursting with gooey melted cheese and sweet corn",
+          "ratings": 4.7,
+          "stock": 65,
+          "isVeg": true,
+          "numberOfReviews": 39,
+          "reviews": [],
+          "menu": "menu_momo_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc5",
+          "image": [
+            {
+              "public_id": "momo_2",
+              "url": "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dc6": [
+    {
+      "_id": "menu_naturals_1",
+      "name": "Fruit & Milk Scoops",
+      "restaurant": "66716cb0e1a78e67dc8c8dc6",
+      "foodItems": [
+        {
+          "_id": "food_nat_1",
+          "name": "Tender Coconut Ice Cream (2 Scoops)",
+          "price": 150,
+          "description": "Pure tender coconut malai blended with fresh creamy milk and zero artificial flavor",
+          "ratings": 4.9,
+          "stock": 80,
+          "isVeg": true,
+          "numberOfReviews": 89,
+          "reviews": [],
+          "menu": "menu_naturals_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc6",
+          "image": [
+            {
+              "public_id": "nat_1",
+              "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_nat_2",
+          "name": "Alphonso Mango Scoop",
+          "price": 150,
+          "description": "Rich pulpy Ratnagiri Alphonso mango ice cream made with real seasonal fruit",
+          "ratings": 4.8,
+          "stock": 70,
+          "isVeg": true,
+          "numberOfReviews": 64,
+          "reviews": [],
+          "menu": "menu_naturals_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc6",
+          "image": [
+            {
+              "public_id": "nat_2",
+              "url": "https://images.unsplash.com/photo-1576506295286-5cda18df43e7?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dc7": [
+    {
+      "_id": "menu_sb_1",
+      "name": "Cold Brews & Frappuccinos",
+      "restaurant": "66716cb0e1a78e67dc8c8dc7",
+      "foodItems": [
+        {
+          "_id": "food_sb_1",
+          "name": "Caramel Frappuccino (Tall)",
+          "price": 345,
+          "description": "Coffee blended with caramel syrup, milk and ice, topped with whipped cream and caramel drizzle",
+          "ratings": 4.7,
+          "stock": 50,
+          "isVeg": true,
+          "numberOfReviews": 58,
+          "reviews": [],
+          "menu": "menu_sb_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc7",
+          "image": [
+            {
+              "public_id": "sb_1",
+              "url": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_sb_2",
+          "name": "Signature Caffe Latte",
+          "price": 285,
+          "description": "Rich espresso balanced with steamed milk and a light layer of foam",
+          "ratings": 4.6,
+          "stock": 60,
+          "isVeg": true,
+          "numberOfReviews": 42,
+          "reviews": [],
+          "menu": "menu_sb_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc7",
+          "image": [
+            {
+              "public_id": "sb_2",
+              "url": "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dc8": [
+    {
+      "_id": "menu_ss_1",
+      "name": "Fast Food & Pav Bhaji",
+      "restaurant": "66716cb0e1a78e67dc8c8dc8",
+      "foodItems": [
+        {
+          "_id": "food_ss_1",
+          "name": "Special Butter Pav Bhaji",
+          "price": 180,
+          "description": "Spicy mashed vegetable gravy served with warm butter-toasted pavs and chopped onions",
+          "ratings": 4.8,
+          "stock": 90,
+          "isVeg": true,
+          "numberOfReviews": 80,
+          "reviews": [],
+          "menu": "menu_ss_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc8",
+          "image": [
+            {
+              "public_id": "ss_1",
+              "url": "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_ss_2",
+          "name": "Mysore Masala Dosa",
+          "price": 160,
+          "description": "Crispy dosa with spicy red garlic chutney spread and potato bhaji filling",
+          "ratings": 4.6,
+          "stock": 85,
+          "isVeg": true,
+          "numberOfReviews": 62,
+          "reviews": [],
+          "menu": "menu_ss_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dc8",
+          "image": [
+            {
+              "public_id": "ss_2",
+              "url": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dca": [
+    {
+      "_id": "menu_faasos_1",
+      "name": "Signature Rolls",
+      "restaurant": "66716cb0e1a78e67dc8c8dca",
+      "foodItems": [
+        {
+          "_id": "food_faa_1",
+          "name": "Smokey Chicken Roll",
+          "price": 199,
+          "description": "Smoked tender chicken chunks wrapped in laccha paratha with creamy mayo and mint chutney",
+          "ratings": 4.5,
+          "stock": 75,
+          "isVeg": false,
+          "numberOfReviews": 44,
+          "reviews": [],
+          "menu": "menu_faasos_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dca",
+          "image": [
+            {
+              "public_id": "faa_1",
+              "url": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_faa_2",
+          "name": "Jumbo Paneer Tikka Wrap",
+          "price": 219,
+          "description": "Cottage cheese cubes tossed in spicy makhani gravy wrapped in flaky paratha",
+          "ratings": 4.6,
+          "stock": 65,
+          "isVeg": true,
+          "numberOfReviews": 50,
+          "reviews": [],
+          "menu": "menu_faasos_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dca",
+          "image": [
+            {
+              "public_id": "faa_2",
+              "url": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dcb": [
+    {
+      "_id": "menu_pg_1",
+      "name": "North Indian Delicacies",
+      "restaurant": "66716cb0e1a78e67dc8c8dcb",
+      "foodItems": [
+        {
+          "_id": "food_pg_1",
+          "name": "Butter Chicken Punjab Grill",
+          "price": 460,
+          "description": "Tandoori chicken simmered in rich creamy tomato and fenugreek gravy with dollops of butter",
+          "ratings": 4.8,
+          "stock": 45,
+          "isVeg": false,
+          "numberOfReviews": 68,
+          "reviews": [],
+          "menu": "menu_pg_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dcb",
+          "image": [
+            {
+              "public_id": "pg_1",
+              "url": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_pg_2",
+          "name": "Dal Makhani (Slow Cooked)",
+          "price": 340,
+          "description": "Black lentils slow cooked overnight on charcoal with cream and white butter",
+          "ratings": 4.9,
+          "stock": 60,
+          "isVeg": true,
+          "numberOfReviews": 82,
+          "reviews": [],
+          "menu": "menu_pg_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dcb",
+          "image": [
+            {
+              "public_id": "pg_2",
+              "url": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dcc": [
+    {
+      "_id": "menu_waffle_1",
+      "name": "Waffles & Waff-wiches",
+      "restaurant": "66716cb0e1a78e67dc8c8dcc",
+      "foodItems": [
+        {
+          "_id": "food_waffle_1",
+          "name": "Triple Chocolate Waffle",
+          "price": 170,
+          "description": "Crispy dark waffle loaded with melted white, milk and dark Belgian chocolate",
+          "ratings": 4.9,
+          "stock": 85,
+          "isVeg": true,
+          "numberOfReviews": 95,
+          "reviews": [],
+          "menu": "menu_waffle_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dcc",
+          "image": [
+            {
+              "public_id": "waffle_1",
+              "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_waffle_2",
+          "name": "Nutella Craving Waffle",
+          "price": 190,
+          "description": "Fresh warm waffle sandwich smothered with pure Hazelnut Nutella",
+          "ratings": 4.8,
+          "stock": 80,
+          "isVeg": true,
+          "numberOfReviews": 84,
+          "reviews": [],
+          "menu": "menu_waffle_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dcc",
+          "image": [
+            {
+              "public_id": "waffle_2",
+              "url": "https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dcd": [
+    {
+      "_id": "menu_bbq_1",
+      "name": "BBQ Kebabs & Platters",
+      "restaurant": "66716cb0e1a78e67dc8c8dcd",
+      "foodItems": [
+        {
+          "_id": "food_bbq_1",
+          "name": "Crispy Corn & Spiced Potato",
+          "price": 249,
+          "description": "Golden fried sweet corn kernels tossed with fresh spring onion and chatpata spices",
+          "ratings": 4.7,
+          "stock": 70,
+          "isVeg": true,
+          "numberOfReviews": 55,
+          "reviews": [],
+          "menu": "menu_bbq_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dcd",
+          "image": [
+            {
+              "public_id": "bbq_1",
+              "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_bbq_2",
+          "name": "Tandoori Tangdi Kebab (3 Pcs)",
+          "price": 369,
+          "description": "Chicken drumsticks marinated in hung curd, Kashmiri chilli and char-grilled to perfection",
+          "ratings": 4.8,
+          "stock": 50,
+          "isVeg": false,
+          "numberOfReviews": 62,
+          "reviews": [],
+          "menu": "menu_bbq_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dcd",
+          "image": [
+            {
+              "public_id": "bbq_2",
+              "url": "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=500"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "66716cb0e1a78e67dc8c8dd0": [
+    {
+      "_id": "menu_mcd_1",
+      "name": "Burgers & Meals",
+      "restaurant": "66716cb0e1a78e67dc8c8dd0",
+      "foodItems": [
+        {
+          "_id": "food_mcd_1",
+          "name": "McSpicy Chicken Burger",
+          "price": 185,
+          "description": "Tender, juicy chicken patty coated with spicy batter, topped with creamy sauce and lettuce",
+          "ratings": 4.7,
+          "stock": 90,
+          "isVeg": false,
+          "numberOfReviews": 76,
+          "reviews": [],
+          "menu": "menu_mcd_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dd0",
+          "image": [
+            {
+              "public_id": "mcd_1",
+              "url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"
+            }
+          ]
+        },
+        {
+          "_id": "food_mcd_2",
+          "name": "McAloo Tikki Meal",
+          "price": 149,
+          "description": "Classic spiced potato and pea patty burger served with medium fries and beverage",
+          "ratings": 4.5,
+          "stock": 100,
+          "isVeg": true,
+          "numberOfReviews": 88,
+          "reviews": [],
+          "menu": "menu_mcd_1",
+          "restaurant": "66716cb0e1a78e67dc8c8dd0",
+          "image": [
+            {
+              "public_id": "mcd_2",
+              "url": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500"
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

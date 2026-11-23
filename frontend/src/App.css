@@ -1,20 +1,27 @@
+:root {
+  --primary-color: #fc8019;
+  --primary-hover: #e06d0c;
+  --primary-light: #fff3e8;
+  --secondary-color: #10b981;
+  --dark-color: #0f172a;
+  --body-bg: #f8fafc;
+  --card-bg: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-subtle: #e2e8f0;
+}
+
 html,
 body {
-  font-family: "Amazon Ember";
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
-  background-image:
-    linear-gradient(
-      0deg,
-      rgba(250, 250, 250, 0.801),
-      rgba(250, 250, 250, 0.836)
-    ),
-    url("/images/flat-lay-green-vegetables-fruits.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #f8fafc;
+  color: #0f172a;
 }
 
 /* Scroll Bar */
@@ -43,11 +50,7 @@ body {
 }
 
 nav {
-   background-color: #056a3a;
-  padding: 1rem 1rem;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  padding: 0.75rem 1rem;
 }
 
 .web_logo {
@@ -1366,34 +1369,37 @@ body {
 
 /* Modern Header */
 .header-nav {
-  background: linear-gradient(135deg, #056a3a 0%, #034b29 100%) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
   padding: 0.75rem 1rem !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04) !important;
   z-index: 1030;
 }
 
 .brand-logo-badge {
   font-size: 1.8rem;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 .brand-title {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   letter-spacing: -0.5px;
 }
 
 .brand-highlight {
-  color: #ffc107;
+  color: #fc8019;
 }
 
 .location-chip {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   padding: 6px 14px;
   border-radius: 50px;
-  color: #ffffff;
+  color: #0f172a;
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: none;
@@ -1402,12 +1408,12 @@ body {
 }
 
 .location-chip:hover {
-  background: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.45);
+  background: #f1f5f9;
+  border-color: #cbd5e1;
 }
 
 .location-chip .text-muted {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: #64748b !important;
 }
 
 /* Location Modal Styles */
@@ -1521,20 +1527,20 @@ body {
 }
 
 .btn-search-go {
-  background: #ffc107 !important;
-  color: #1e293b !important;
+  background: #fc8019 !important;
+  color: #ffffff !important;
   font-weight: 700 !important;
   padding: 0.4rem 1.25rem !important;
   border-radius: 0 50px 50px 0 !important;
 }
 
 .btn-search-go:hover {
-  background: #eab308 !important;
+  background: #e06d0c !important;
 }
 
 /* Nav Icon Links */
 .nav-icon-link {
-  color: #ffffff !important;
+  color: #334155 !important;
   text-decoration: none !important;
   font-size: 0.95rem;
   font-weight: 600;
@@ -1544,16 +1550,24 @@ body {
 }
 
 .nav-icon-link:hover {
-  background: rgba(255, 255, 255, 0.15);
+  color: #fc8019 !important;
+  background: #fff3e8;
 }
 
 .cart-pill-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #fc8019 !important;
+  border: 1px solid #fc8019 !important;
+  color: #ffffff !important;
 }
 
 .cart-pill-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #e06d0c !important;
+  border-color: #e06d0c !important;
+  color: #ffffff !important;
+}
+
+.cart-pill-btn .nav-icon {
+  color: #ffffff !important;
 }
 
 .cart-badge {
@@ -1633,7 +1647,7 @@ body {
   border-radius: 20px;
   min-height: 160px;
   padding: 18px 20px;
-  color: #ffffff;
+  color: #ffffff !important;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -1641,6 +1655,7 @@ body {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border: 1px solid rgba(255, 255, 255, 0.18);
   user-select: none;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 
 .promo-hero-card:hover {
@@ -1649,27 +1664,29 @@ body {
 
 /* Card Themes */
 .promo-hero-orange {
-  background: linear-gradient(135deg, #9a3412 0%, #ea580c 45%, #fb923c 100%);
-  box-shadow: 0 8px 20px rgba(234, 88, 12, 0.22);
+  background: linear-gradient(135deg, #7c2d12 0%, #c2410c 40%, #ea580c 100%) !important;
+  box-shadow: 0 8px 24px rgba(194, 65, 12, 0.3) !important;
 }
 .promo-hero-orange:hover {
-  box-shadow: 0 16px 32px rgba(234, 88, 12, 0.38) !important;
+  box-shadow: 0 16px 36px rgba(194, 65, 12, 0.45) !important;
 }
 
+.promo-hero-teal,
 .promo-hero-green {
-  background: linear-gradient(135deg, #064e3b 0%, #059669 45%, #34d399 100%);
-  box-shadow: 0 8px 20px rgba(5, 150, 105, 0.22);
+  background: linear-gradient(135deg, #064e3b 0%, #0f766e 40%, #0d9488 100%) !important;
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.3) !important;
 }
+.promo-hero-teal:hover,
 .promo-hero-green:hover {
-  box-shadow: 0 16px 32px rgba(5, 150, 105, 0.38) !important;
+  box-shadow: 0 16px 36px rgba(15, 118, 110, 0.45) !important;
 }
 
 .promo-hero-purple {
-  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 45%, #a78bfa 100%);
-  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.22);
+  background: linear-gradient(135deg, #3b0764 0%, #6b21a8 40%, #7c3aed 100%) !important;
+  box-shadow: 0 8px 24px rgba(107, 33, 168, 0.3) !important;
 }
 .promo-hero-purple:hover {
-  box-shadow: 0 16px 32px rgba(124, 58, 237, 0.38) !important;
+  box-shadow: 0 16px 36px rgba(107, 33, 168, 0.45) !important;
 }
 
 /* Background Food Image with Soft Blend & Cutout effect */
@@ -1713,20 +1730,22 @@ body {
 
 /* Typography */
 .promo-hero-title {
+  color: #ffffff !important;
   font-size: 1.38rem;
   font-weight: 800;
   letter-spacing: -0.4px;
   margin-top: 6px;
   margin-bottom: 2px;
   line-height: 1.2;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 2;
 }
 
 .promo-hero-subtitle {
+  color: rgba(255, 255, 255, 0.95) !important;
   font-size: 0.82rem;
-  opacity: 0.92;
+  opacity: 0.95;
   margin-bottom: 8px;
   font-weight: 500;
   position: relative;
@@ -2276,5 +2295,42 @@ body {
   to {
     transform: translate(-50%, 0);
     opacity: 1;
+  }
+}
+
+/* Shimmer Skeleton Cards */
+.skeleton-card {
+  border-radius: 16px !important;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #f1f5f9 !important;
+}
+
+.skeleton-img {
+  width: 100%;
+  height: 180px;
+}
+
+.skeleton-line {
+  border-radius: 6px;
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #f1f5f9 0%,
+    #e2e8f0 50%,
+    #f1f5f9 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }

@@ -242,16 +242,16 @@ const Header = () => {
               title="Click to change or auto-detect real-time delivery location"
             >
               <div className="location-icon-wrapper mr-2">
-                <FontAwesomeIcon icon={faLocationDot} className="text-warning location-ping-icon" />
+                <FontAwesomeIcon icon={faLocationDot} style={{ color: "#fc8019" }} className="location-ping-icon" />
               </div>
               <div className="d-flex flex-column text-left justify-content-center" style={{ lineHeight: "1.2" }}>
                 <div className="d-flex align-items-center">
-                  <span className="location-text fw-bold text-white text-truncate" style={{ maxWidth: "160px", fontSize: "0.88rem" }}>
+                  <span className="location-text fw-bold text-dark text-truncate" style={{ maxWidth: "160px", fontSize: "0.88rem" }}>
                     {location.area || "Select Location"}
                   </span>
-                  <FontAwesomeIcon icon={faChevronDown} className="ml-1 text-white-50" style={{ fontSize: "0.68rem" }} />
+                  <FontAwesomeIcon icon={faChevronDown} className="ml-1 text-muted" style={{ fontSize: "0.68rem" }} />
                 </div>
-                <div className="d-flex align-items-center text-white-50 mt-1" style={{ fontSize: "0.72rem" }}>
+                <div className="d-flex align-items-center text-muted mt-1" style={{ fontSize: "0.72rem" }}>
                   {location.isRealtime && (
                     <span className="live-dot-pulse mr-1" title="Live GPS Active"></span>
                   )}
@@ -321,7 +321,7 @@ const Header = () => {
                       e.target.src = "/images/images.png";
                     }}
                   />
-                  <span className="d-none d-xl-inline fw-semibold text-white pe-2" style={{ fontSize: "0.9rem" }}>
+                  <span className="d-none d-xl-inline fw-semibold text-dark pe-2" style={{ fontSize: "0.9rem" }}>
                     {user?.name?.split(" ")[0] || "Account"}
                   </span>
                 </div>

@@ -1,5 +1,4 @@
  import API from "../../utils/api";
- import { mockMenus, allMockFoodItems } from "../../mock/mockData";
 
  import {
        getMenusRequest,
@@ -25,18 +24,13 @@
        `/v1/restaurants/${id}/menus`
      );
 
-    dispatch(getMenusSuccess(response.data.data));
+    dispatch(getMenusSuccess(response.data.data || []));
    } catch (error) {
-     console.warn("Backend unavailable, loading offline fallback menu:", error.message);
-     const fallback = mockMenus[id] || [
-       {
-         _id: `menu_${id}`,
-         name: "Recommended Specials",
-         restaurant: id,
-         foodItems: allMockFoodItems.slice(0, 4)
-       }
-     ];
-     dispatch(getMenusSuccess(fallback));
+     dispatch(
+       getMenusFail(
+         error.response?.data?.message || error.message
+       )
+     );
    }
  };
 
