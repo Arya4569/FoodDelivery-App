@@ -18,13 +18,34 @@ export const SocketProvider = ({ children }) => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const isStaticHost =
+      typeof window !== "undefined" &&
+      window.location.hostname.includes("github.io") &&
+      !backendUrl;
+
+    if (isStaticHost) {
+      // In static demo hosting (GitHub Pages without a dedicated WebSocket server),
+      // provide a safe mock socket to prevent 404 connection retry spam
+      const mockSocket = {
+        on: () => mockSocket,
+        off: () => mockSocket,
+        emit: () => mockSocket,
+        disconnect: () => {},
+        connected: false,
+      };
+      setSocket(mockSocket);
+      setIsConnected(false);
+      return;
+    }
+
     // Only connect if user is authenticated and token is available
     if (isAuthenticated && token) {
-      // Connect directly to backend port 5000 in dev or origin
+      // Connect directly to backend port 5000 in dev or configured backend
       const socketUrl =
         window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
           ? "http://localhost:5000"
-          : window.location.origin;
+          : (backendUrl || window.location.origin);
 
       const newSocket = io(socketUrl, {
         auth: { token },
