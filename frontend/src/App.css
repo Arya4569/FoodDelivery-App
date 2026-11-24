@@ -1367,53 +1367,59 @@ body {
   color: #1e293b;
 }
 
-/* Modern Header */
+/* Modern Header - Rich Green Theme */
 .header-nav {
-  background: rgba(255, 255, 255, 0.96) !important;
+  background: linear-gradient(135deg, #064e3b 0%, #047857 55%, #059669 100%) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
   padding: 0.75rem 1rem !important;
-  border-bottom: 1px solid #e2e8f0 !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 4px 20px -2px rgba(6, 78, 59, 0.35) !important;
   z-index: 1030;
 }
 
 .brand-logo-badge {
   font-size: 1.8rem;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
 .brand-title {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #0f172a;
+  color: #ffffff !important;
   letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .brand-highlight {
-  color: #fc8019;
+  color: #fef08a !important; /* Soft warm golden yellow accent */
 }
 
 .location-chip {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
   padding: 6px 14px;
   border-radius: 50px;
-  color: #0f172a;
+  color: #ffffff !important;
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: none;
   display: inline-flex;
   align-items: center;
+  backdrop-filter: blur(8px);
 }
 
 .location-chip:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .location-chip .text-muted {
-  color: #64748b !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.location-text {
+  color: #ffffff !important;
 }
 
 /* Location Modal Styles */
@@ -1517,8 +1523,9 @@ body {
 .modern-search-bar {
   border-radius: 50px !important;
   overflow: hidden;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
 }
 
 .modern-search-input {
@@ -1527,51 +1534,72 @@ body {
 }
 
 .btn-search-go {
-  background: #fc8019 !important;
+  background: #064e3b !important;
   color: #ffffff !important;
   font-weight: 700 !important;
   padding: 0.4rem 1.25rem !important;
   border-radius: 0 50px 50px 0 !important;
+  border: none !important;
 }
 
 .btn-search-go:hover {
-  background: #e06d0c !important;
+  background: #043829 !important;
 }
 
 /* Nav Icon Links */
 .nav-icon-link {
-  color: #334155 !important;
+  color: #ffffff !important;
   text-decoration: none !important;
   font-size: 0.95rem;
   font-weight: 600;
-  padding: 6px 12px;
+  padding: 7px 14px;
   border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
   transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
 }
 
 .nav-icon-link:hover {
-  color: #16a34a !important;
-  background: #f0fdf4;
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+.nav-icon-link .nav-icon {
+  color: #ffffff !important;
 }
 
 .cart-pill-btn {
-  background: #16a34a !important;
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
-  border: 1px solid #16a34a !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3) !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  color: #064e3b !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
+  font-weight: 700 !important;
 }
 
 .cart-pill-btn:hover {
-  background: #15803d !important;
-  background: linear-gradient(135deg, #15803d 0%, #166534 100%) !important;
-  border-color: #15803d !important;
-  color: #ffffff !important;
-  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4) !important;
+  background: #f0fdf4 !important;
+  color: #047857 !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25) !important;
+  transform: translateY(-1px);
 }
 
 .cart-pill-btn .nav-icon {
+  color: #064e3b !important;
+}
+
+.profile-pill-trigger {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
   color: #ffffff !important;
+  transition: all 0.2s ease;
+}
+
+.profile-pill-trigger:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .cart-badge {
