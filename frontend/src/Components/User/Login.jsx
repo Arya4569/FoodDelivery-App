@@ -59,10 +59,22 @@ const Login = () => {
         />
 
         <button
-          className="btn btn-primary w-100"
+          className="btn btn-warning text-white fw-bold w-100 rounded-pill mb-2 shadow-sm"
           disabled={loading}
         >
           {loading ? "Logging in..." : "Login"}
+        </button>
+
+        <button
+          type="button"
+          className="btn btn-outline-success w-100 rounded-pill fw-semibold"
+          onClick={() => {
+            setEmail("demo@fooddelivery.com");
+            setPassword("Demo@123");
+            dispatch(login("demo@fooddelivery.com", "Demo@123"));
+          }}
+        >
+          🚀 1-Click Demo Login
         </button>
       </form>
 

@@ -9,7 +9,7 @@ import {
 } from "../redux/actions/orderActions";
 import { clearErrors } from "../redux/slices/orderSlice";
 import { toast } from "react-toastify";
-import axios from "axios";
+import api from "../utils/api";
 import { useSocket } from "../context/SocketContext";
 import LiveTrackingMap from "../Components/DeliveryPartner/LiveTrackingMap";
 
@@ -269,8 +269,8 @@ const OrderSuccess = () => {
     const token = sessionStorage.getItem("token") || localStorage.getItem("token");
     if (!token) return;
 
-    axios
-      .get(`/api/v1/delivery/orders/${targetId}/track`, {
+    api
+      .get(`/v1/delivery/orders/${targetId}/track`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

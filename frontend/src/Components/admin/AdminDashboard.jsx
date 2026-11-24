@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "../../utils/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faIndianRupeeSign,
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
       setLoadingPartners(true);
       const token = sessionStorage.getItem("token") || localStorage.getItem("token");
       if (!token) return;
-      const res = await axios.get("/api/v1/delivery/admin/partners", {
+      const res = await api.get("/v1/delivery/admin/partners", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.data?.success) {
@@ -65,8 +65,8 @@ const AdminDashboard = () => {
   const handleVerifyPartner = async (partnerId, status) => {
     try {
       const token = sessionStorage.getItem("token") || localStorage.getItem("token");
-      const res = await axios.put(
-        `/api/v1/delivery/admin/partners/${partnerId}/verify`,
+      const res = await api.put(
+        `/v1/delivery/admin/partners/${partnerId}/verify`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -87,8 +87,8 @@ const AdminDashboard = () => {
     try {
       setAssigningPartner(true);
       const token = sessionStorage.getItem("token") || localStorage.getItem("token");
-      const res = await axios.post(
-        `/api/v1/delivery/admin/orders/${assignModalOrder.id || assignModalOrder._id}/assign`,
+      const res = await api.post(
+        `/v1/delivery/admin/orders/${assignModalOrder.id || assignModalOrder._id}/assign`,
         { partnerId: selectedPartnerId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

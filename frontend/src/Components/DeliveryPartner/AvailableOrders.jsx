@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import { toast } from "react-toastify";
 
 const AvailableOrders = ({ isOnline, onRefreshProfile }) => {
@@ -16,7 +16,7 @@ const AvailableOrders = ({ isOnline, onRefreshProfile }) => {
         },
       };
 
-      const res = await axios.get("/api/v1/delivery/orders/available", config);
+      const res = await api.get("/v1/delivery/orders/available", config);
       if (res.data && res.data.success) {
         setOrders(res.data.orders || []);
       }

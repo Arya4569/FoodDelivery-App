@@ -97,13 +97,11 @@ const Register = () => {
         />
 
         <button
-className="btn btn-primary w-100"
-disabled={loading}
->
-{
-loading ? "Registering..." : "Register"
-}
-</button>
+          className="btn btn-warning text-white fw-bold w-100 rounded-pill shadow-sm"
+          disabled={loading}
+        >
+          {loading ? "Registering..." : "Register"}
+        </button>
       </form>
 
       <p className="mt-3 text-center">

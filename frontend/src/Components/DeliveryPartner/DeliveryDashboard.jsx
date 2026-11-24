@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useSocket } from "../../context/SocketContext";
@@ -40,7 +40,7 @@ const DeliveryDashboard = () => {
         },
       };
 
-      const res = await axios.get("/api/v1/delivery/profile/me", config);
+      const res = await api.get("/v1/delivery/profile/me", config);
       if (res.data?.success) {
         setPartnerProfile(res.data.deliveryPartner);
         setShowRegisterForm(false);
@@ -77,8 +77,8 @@ const DeliveryDashboard = () => {
       const token = sessionStorage.getItem("token") || localStorage.getItem("token");
       const nextStatus = !partnerProfile.isOnline;
 
-      const res = await axios.put(
-        "/api/v1/delivery/availability",
+      const res = await api.put(
+        "/v1/delivery/availability",
         { isOnline: nextStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -109,8 +109,8 @@ const DeliveryDashboard = () => {
     try {
       setSubmittingReg(true);
       const token = sessionStorage.getItem("token") || localStorage.getItem("token");
-      const res = await axios.post(
-        "/api/v1/delivery/register",
+      const res = await api.post(
+        "/v1/delivery/register",
         {
           phone: regPhone,
           vehicleType: regVehicleType,

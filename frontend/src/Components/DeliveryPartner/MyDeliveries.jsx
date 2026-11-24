@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import { toast } from "react-toastify";
 import { useSocket } from "../../context/SocketContext";
 import LiveTrackingMap from "./LiveTrackingMap";
@@ -33,7 +33,7 @@ const MyDeliveries = ({ onRefreshStats }) => {
         },
       };
 
-      const res = await axios.get("/api/v1/delivery/orders/my-deliveries", config);
+      const res = await api.get("/v1/delivery/orders/my-deliveries", config);
       if (res.data && res.data.success) {
         setDeliveries(res.data.orders || []);
       }
@@ -105,9 +105,9 @@ const MyDeliveries = ({ onRefreshStats }) => {
           // 2. Fallback REST update
           const token = sessionStorage.getItem("token") || localStorage.getItem("token");
           if (token) {
-            axios
+            api
               .post(
-                "/api/v1/delivery/location",
+                "/v1/delivery/location",
                 {
                   orderId: targetOrderId,
                   latitude,
@@ -190,8 +190,8 @@ const MyDeliveries = ({ onRefreshStats }) => {
   const handleMarkPickedUp = async (orderId) => {
     try {
       const token = sessionStorage.getItem("token") || localStorage.getItem("token");
-      const res = await axios.put(
-        `/api/v1/delivery/orders/${orderId}/pickup`,
+      const res = await api.put(
+        `/v1/delivery/orders/${orderId}/pickup`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -208,8 +208,8 @@ const MyDeliveries = ({ onRefreshStats }) => {
   const handleMarkOutForDelivery = async (orderId) => {
     try {
       const token = sessionStorage.getItem("token") || localStorage.getItem("token");
-      const res = await axios.put(
-        `/api/v1/delivery/orders/${orderId}/out-for-delivery`,
+      const res = await api.put(
+        `/v1/delivery/orders/${orderId}/out-for-delivery`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -232,8 +232,8 @@ const MyDeliveries = ({ onRefreshStats }) => {
     try {
       setVerifyingOtp(true);
       const token = sessionStorage.getItem("token") || localStorage.getItem("token");
-      const res = await axios.put(
-        `/api/v1/delivery/orders/${otpModalOrder._id}/deliver`,
+      const res = await api.put(
+        `/v1/delivery/orders/${otpModalOrder._id}/deliver`,
         { otp: otpInput.trim() },
         { headers: { Authorization: `Bearer ${token}` } }
       );

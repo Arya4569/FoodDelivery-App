@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import "../App.css";
 
 const suggestions = [
@@ -72,7 +72,7 @@ const AIChat = () => {
     setMessage("");
 
     try {
-      const { data } = await axios.post("/api/v1/ai/chat", {
+      const { data } = await api.post("/v1/ai/chat", {
         message: userMessage,
       });
 

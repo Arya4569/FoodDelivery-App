@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import { toast } from "react-toastify";
 
 const Earnings = () => {
@@ -17,7 +17,7 @@ const Earnings = () => {
         },
       };
 
-      const res = await axios.get("/api/v1/delivery/earnings", config);
+      const res = await api.get("/v1/delivery/earnings", config);
       if (res.data && res.data.success) {
         setEarningsData(res.data.earnings);
       }
