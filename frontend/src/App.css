@@ -2478,19 +2478,27 @@ body {
   }
 
   /* Compact Navbar Header */
+  .header-brand-location {
+    width: 100% !important;
+  }
   .brand-logo-badge {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
   .brand-title {
-    font-size: 1.25rem !important;
+    font-size: 1.15rem !important;
   }
   .location-chip {
-    padding: 4px 8px !important;
+    padding: 3px 8px !important;
     margin-left: 0.25rem !important;
+    max-width: 140px !important;
   }
   .location-text {
-    max-width: 110px !important;
-    font-size: 0.78rem !important;
+    max-width: 90px !important;
+    font-size: 0.75rem !important;
+  }
+  .profile-mini-trigger .profile-avatar {
+    width: 30px !important;
+    height: 30px !important;
   }
 
   /* Search Input on mobile */

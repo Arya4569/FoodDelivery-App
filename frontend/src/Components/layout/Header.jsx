@@ -229,41 +229,67 @@ const Header = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg sticky-top header-nav shadow-sm">
-        <div className="container-fluid px-lg-5">
-          {/* Brand & Location */}
-          <div className="d-flex align-items-center">
-            <Link to="/" className="navbar-brand d-flex align-items-center me-2 me-md-4">
-              <span className="brand-logo-badge me-2">🍽️</span>
-              <span className="brand-title">Feast<span className="brand-highlight">Finder</span></span>
-            </Link>
+        <div className="container-fluid px-2 px-lg-5">
+          {/* Top Row on mobile / Left group on desktop */}
+          <div className="d-flex align-items-center justify-content-between header-brand-location w-100 w-lg-auto">
+            {/* Brand & Location */}
+            <div className="d-flex align-items-center">
+              <Link to="/" className="navbar-brand d-flex align-items-center me-2 me-md-4">
+                <span className="brand-logo-badge me-1 me-md-2">🍽️</span>
+                <span className="brand-title">Feast<span className="brand-highlight">Finder</span></span>
+              </Link>
 
-            {/* Interactive Real-Time Location Chip */}
-            <div
-              className="d-flex align-items-center location-chip"
-              onClick={() => setShowLocationModal(true)}
-              title="Click to change or auto-detect real-time delivery location"
-            >
-              <div className="location-icon-wrapper mr-2">
-                <FontAwesomeIcon icon={faLocationDot} style={{ color: "#fef08a" }} className="location-ping-icon" />
-              </div>
-              <div className="d-flex flex-column text-left justify-content-center" style={{ lineHeight: "1.2" }}>
-                <div className="d-flex align-items-center">
-                  <span className="location-text fw-bold text-white text-truncate" style={{ maxWidth: "160px", fontSize: "0.88rem" }}>
-                    {location.area || "Select Location"}
-                  </span>
-                  <FontAwesomeIcon icon={faChevronDown} className="ml-1 text-white-50" style={{ fontSize: "0.68rem" }} />
+              {/* Interactive Real-Time Location Chip */}
+              <div
+                className="d-flex align-items-center location-chip"
+                onClick={() => setShowLocationModal(true)}
+                title="Click to change or auto-detect real-time delivery location"
+              >
+                <div className="location-icon-wrapper mr-1 mr-md-2">
+                  <FontAwesomeIcon icon={faLocationDot} style={{ color: "#fef08a" }} className="location-ping-icon" />
                 </div>
-                <div className="d-flex align-items-center text-white-50 mt-1" style={{ fontSize: "0.72rem" }}>
-                  {location.isRealtime && (
-                    <span className="live-dot-pulse mr-1" title="Live GPS Active"></span>
-                  )}
-                  <span>{location.isRealtime ? "Live GPS • " : ""}{location.time || "25-30 mins"}</span>
+                <div className="d-flex flex-column text-left justify-content-center" style={{ lineHeight: "1.2" }}>
+                  <div className="d-flex align-items-center">
+                    <span className="location-text fw-bold text-white text-truncate" style={{ maxWidth: "120px", fontSize: "0.85rem" }}>
+                      {(location.area || "Select Location").replace("Detecting Location...", "Locating...")}
+                    </span>
+                    <FontAwesomeIcon icon={faChevronDown} className="ml-1 text-white-50" style={{ fontSize: "0.65rem" }} />
+                  </div>
+                  <div className="d-none d-sm-flex align-items-center text-white-50 mt-1" style={{ fontSize: "0.7rem" }}>
+                    {location.isRealtime && (
+                      <span className="live-dot-pulse mr-1" title="Live GPS Active"></span>
+                    )}
+                    <span>{location.isRealtime ? "Live GPS • " : ""}{location.time || "25-30 mins"}</span>
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/* Mobile Header Right Items (Notification + Profile / Sign In) */}
+            <div className="d-flex d-lg-none align-items-center gap-2">
+              <NotificationBell />
+              {isAuthenticated ? (
+                <Link to="/profile" className="profile-mini-trigger" title="My Profile">
+                  <img
+                    src={user?.avatar?.url || "/images/images.png"}
+                    alt="Profile"
+                    className="profile-avatar shadow-sm"
+                    style={{ width: "32px", height: "32px" }}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/images/images.png";
+                    }}
+                  />
+                </Link>
+              ) : (
+                <Link to="/login" className="btn btn-login-pill btn-sm px-3 py-1 fw-bold" style={{ fontSize: "0.8rem" }}>
+                  Sign In
+                </Link>
+              )}
+            </div>
           </div>
 
-          {/* Search Bar */}
+          {/* Search Bar (Row 2 on Mobile, Centered on Desktop) */}
           <div className="search-container mx-auto my-2 my-lg-0 col-12 col-lg-5">
             <Routes>
               <Route path="/" element={<Search />} />
@@ -272,8 +298,8 @@ const Header = () => {
             </Routes>
           </div>
 
-          {/* Right Navigation Controls */}
-          <div className="d-flex align-items-center gap-3">
+          {/* Desktop Right Navigation Controls (Hidden on Mobile) */}
+          <div className="d-none d-lg-flex align-items-center gap-3">
             {/* Track Orders */}
             <Link to="/orders" className="nav-icon-link d-none d-sm-flex align-items-center" title="Track Order">
               <FontAwesomeIcon icon={faMotorcycle} className="nav-icon me-1" />
@@ -281,7 +307,7 @@ const Header = () => {
             </Link>
 
             {/* Wishlist */}
-            <Link to="/wishlist" className="nav-icon-link position-relative d-none d-md-flex align-items-center" title="Wishlist">
+            <Link to="/wishlist" className="nav-icon-link position-relative d-flex align-items-center" title="Wishlist">
               <FontAwesomeIcon icon={faHeart} className="nav-icon text-danger me-1" />
               <span className="nav-link-text d-none d-md-inline">Wishlist</span>
               {wishlistCount > 0 && (
@@ -292,7 +318,7 @@ const Header = () => {
             </Link>
 
             {/* Cart with Live Badge */}
-            <Link to="/cart" className="nav-icon-link position-relative cart-pill-btn d-none d-md-flex align-items-center" title="Cart">
+            <Link to="/cart" className="nav-icon-link position-relative cart-pill-btn d-flex align-items-center" title="Cart">
               <FontAwesomeIcon icon={faBagShopping} className="nav-icon me-2" />
               <span className="fw-bold d-none d-sm-inline">Cart</span>
               {totalCartCount > 0 && (
