@@ -285,9 +285,9 @@ const Home = () => {
     <div className="home-container pb-5">
       {/* 1. Promotional Deals Banner Strip */}
       <div className="promo-banner-strip my-3">
-        <div className="row g-3">
+        <div className="row g-3 promo-banner-row">
           {/* Deal 1: Flat 50% OFF */}
-          <div className="col-12 col-md-4">
+          <div className="col-12 col-md-4 promo-banner-col">
             <div
               className="promo-hero-card promo-hero-orange"
               style={{
@@ -352,7 +352,7 @@ const Home = () => {
           </div>
 
           {/* Deal 2: Free Delivery */}
-          <div className="col-12 col-md-4">
+          <div className="col-12 col-md-4 promo-banner-col">
             <div
               className="promo-hero-card promo-hero-teal"
               style={{
@@ -414,7 +414,7 @@ const Home = () => {
           </div>
 
           {/* Deal 3: Gourmet Biryanis */}
-          <div className="col-12 col-md-4">
+          <div className="col-12 col-md-4 promo-banner-col">
             <div
               className="promo-hero-card promo-hero-purple"
               style={{

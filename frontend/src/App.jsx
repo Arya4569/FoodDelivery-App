@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./Components/Home";
 import Header from "./Components/layout/Header";
 import Footer from "./Components/layout/Footer";
+import MobileBottomNav from "./Components/layout/MobileBottomNav";
 import Menu from "./Components/Menu";
 import Cart from "./cart/Cart";
 import Login from "./Components/User/Login";
@@ -88,6 +89,7 @@ function App() {
             </Routes>
           </div>
           <Footer />
+          <MobileBottomNav />
         </div>
       </Router>
       <AIChat />

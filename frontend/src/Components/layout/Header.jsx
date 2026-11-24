@@ -281,7 +281,7 @@ const Header = () => {
             </Link>
 
             {/* Wishlist */}
-            <Link to="/wishlist" className="nav-icon-link position-relative d-flex align-items-center" title="Wishlist">
+            <Link to="/wishlist" className="nav-icon-link position-relative d-none d-md-flex align-items-center" title="Wishlist">
               <FontAwesomeIcon icon={faHeart} className="nav-icon text-danger me-1" />
               <span className="nav-link-text d-none d-md-inline">Wishlist</span>
               {wishlistCount > 0 && (
@@ -292,7 +292,7 @@ const Header = () => {
             </Link>
 
             {/* Cart with Live Badge */}
-            <Link to="/cart" className="nav-icon-link position-relative cart-pill-btn d-flex align-items-center" title="Cart">
+            <Link to="/cart" className="nav-icon-link position-relative cart-pill-btn d-none d-md-flex align-items-center" title="Cart">
               <FontAwesomeIcon icon={faBagShopping} className="nav-icon me-2" />
               <span className="fw-bold d-none d-sm-inline">Cart</span>
               {totalCartCount > 0 && (
