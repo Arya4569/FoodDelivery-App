@@ -1550,20 +1550,24 @@ body {
 }
 
 .nav-icon-link:hover {
-  color: #fc8019 !important;
-  background: #fff3e8;
+  color: #16a34a !important;
+  background: #f0fdf4;
 }
 
 .cart-pill-btn {
-  background: #fc8019 !important;
-  border: 1px solid #fc8019 !important;
+  background: #16a34a !important;
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+  border: 1px solid #16a34a !important;
   color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3) !important;
 }
 
 .cart-pill-btn:hover {
-  background: #e06d0c !important;
-  border-color: #e06d0c !important;
+  background: #15803d !important;
+  background: linear-gradient(135deg, #15803d 0%, #166534 100%) !important;
+  border-color: #15803d !important;
   color: #ffffff !important;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4) !important;
 }
 
 .cart-pill-btn .nav-icon {

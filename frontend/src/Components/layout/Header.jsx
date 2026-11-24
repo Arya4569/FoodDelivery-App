@@ -294,7 +294,7 @@ const Header = () => {
               <FontAwesomeIcon icon={faBagShopping} className="nav-icon me-2" />
               <span className="fw-bold d-none d-sm-inline">Cart</span>
               {totalCartCount > 0 && (
-                <span className="badge rounded-pill bg-warning text-dark cart-badge ms-1">
+                <span className="badge rounded-pill bg-white text-success cart-badge ms-1 fw-bold">
                   {totalCartCount}
                 </span>
               )}
