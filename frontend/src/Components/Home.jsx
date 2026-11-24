@@ -150,26 +150,26 @@ const Home = () => {
 
   const fetchDishes = async () => {
     setFoodLoading(true);
+    const params = {};
+    if (keyword) params.keyword = keyword;
+    if (selectedCategory && selectedCategory !== "All") params.category = selectedCategory;
+    if (showVegOnly) params.isVeg = true;
+    if (minRatingFilter) params.minRating = 4.0;
+
+    if (foodPriceFilter === "under200") {
+      params.maxPrice = 199;
+    } else if (foodPriceFilter === "200-400") {
+      params.minPrice = 200;
+      params.maxPrice = 400;
+    } else if (foodPriceFilter === "above400") {
+      params.minPrice = 401;
+    }
+
+    if (foodSortBy) {
+      params.sortBy = foodSortBy;
+    }
+
     try {
-      const params = {};
-      if (keyword) params.keyword = keyword;
-      if (selectedCategory && selectedCategory !== "All") params.category = selectedCategory;
-      if (showVegOnly) params.isVeg = true;
-      if (minRatingFilter) params.minRating = 4.0;
-
-      if (foodPriceFilter === "under200") {
-        params.maxPrice = 199;
-      } else if (foodPriceFilter === "200-400") {
-        params.minPrice = 200;
-        params.maxPrice = 400;
-      } else if (foodPriceFilter === "above400") {
-        params.minPrice = 401;
-      }
-
-      if (foodSortBy) {
-        params.sortBy = foodSortBy;
-      }
-
       const res = await api.get("/v1/foods/search", { params });
       setFoodItems(res.data.foodItems || []);
     } catch (err) {
