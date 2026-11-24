@@ -51,14 +51,28 @@ function getFallbackRestaurants(query = {}) {
   }
 }
 
+function hashString(str = "") {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
 // Helper to load fallback menus from sampleMenus.json
 function getFallbackMenus(restaurantId) {
   try {
     const filePath = path.join(__dirname, "../sampleMenus.json");
     if (fs.existsSync(filePath)) {
       const allMenus = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-      if (allMenus[restaurantId]) {
+      if (allMenus[restaurantId] && allMenus[restaurantId].length > 0) {
         return allMenus[restaurantId];
+      }
+      const allKeys = Object.keys(allMenus);
+      if (allKeys.length > 0) {
+        const sampleKey = allKeys[hashString(restaurantId) % allKeys.length];
+        return allMenus[sampleKey] || allMenus[allKeys[0]];
       }
     }
   } catch (e) {

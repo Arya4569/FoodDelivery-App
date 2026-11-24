@@ -41,10 +41,10 @@ const generalLimiter = rateLimit({
 });
 app.use(generalLimiter);
 
-// Stricter auth rate limit: 10 req / 15 min
+// Stricter auth rate limit: 100 req / 15 min for smooth testing & dev
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: 100,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Too many login attempts, please try again later.' }

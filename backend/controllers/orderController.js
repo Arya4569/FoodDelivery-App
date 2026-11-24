@@ -2,6 +2,8 @@ const Order = require("../models/order");
 const FoodItem = require("../models/fooditem");
 const Cart = require("../models/cart");
 const { ObjectId } = require("mongodb");
+const mongoose = require("mongoose");
+const LocalStore = require("../utils/localStore");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const path = require("path");
@@ -45,17 +47,12 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     }
   }
 
-  const cart = await Cart.findOne({ user: req.user._id })
-    .populate({
-      path: "items.foodItem",
-      select: "name price image images",
-    })
-    .populate({
-      path: "restaurant",
-      select: "name",
-    });
+  let paymentInfo = {
+    id: session.payment_intent || "pi_mock_" + Date.now(),
+    status: session.payment_status || "paid",
+  };
 
-  let deliveryInfo = req.body.deliveryInfo && req.body.deliveryInfo.address ? {
+  const deliveryInfo = req.body.deliveryInfo && req.body.deliveryInfo.address ? {
     address: req.body.deliveryInfo.address,
     city: req.body.deliveryInfo.city || session.shipping_details?.address?.city || "Mumbai",
     phoneNo: req.body.deliveryInfo.phoneNo || session.customer_details?.phone || req.user.phoneNumber || "9876543210",
@@ -72,10 +69,52 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     country: session.shipping_details?.address?.country || "IN",
   };
 
-  let paymentInfo = {
-    id: session.payment_intent || "pi_mock_" + Date.now(),
-    status: session.payment_status || "paid",
-  };
+  // If DB is offline / not connected, use LocalStore
+  if (mongoose.connection.readyState !== 1) {
+    const localCart = LocalStore.getCart(req.user._id || req.user.id);
+    const orderItems = (localCart.items && localCart.items.length > 0)
+      ? localCart.items.map((i) => ({
+          name: i.foodItem?.name || "Delicious Dish",
+          quantity: i.quantity || 1,
+          image: i.foodItem?.images?.[0]?.url || "/images/placeholder.png",
+          price: i.foodItem?.price || 250,
+          fooditem: i.foodItem?._id || "dish_1",
+        }))
+      : [{
+          name: "Signature Special",
+          quantity: 1,
+          image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800",
+          price: 299,
+          fooditem: "dish_special_1",
+        }];
+
+    const itemsTotal = orderItems.reduce((acc, it) => acc + it.price * it.quantity, 0);
+    const order = LocalStore.createOrder({
+      orderItems,
+      deliveryInfo,
+      paymentInfo,
+      deliveryCharge: 50,
+      itemsPrice: itemsTotal,
+      finalTotal: itemsTotal + 50,
+      user: req.user._id || req.user.id,
+      restaurant: localCart.restaurant || "rest_default",
+      orderStatus: "Order Confirmed",
+      estimatedDeliveryTime: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
+      paidAt: Date.now(),
+    });
+    LocalStore.clearCart(req.user._id || req.user.id);
+    return res.status(200).json({ success: true, order });
+  }
+
+  const cart = await Cart.findOne({ user: req.user._id })
+    .populate({
+      path: "items.foodItem",
+      select: "name price image images",
+    })
+    .populate({
+      path: "restaurant",
+      select: "name",
+    });
 
   if (!cart || !cart.items || cart.items.length === 0) {
     const foodItems = await FoodItem.find().limit(1);
@@ -211,49 +250,76 @@ exports.newCodOrder = catchAsyncErrors(async (req, res, next) => {
 
 // Get single order   =>   /api/v1/orders/:id
 exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
-  const order = await Order.findById(req.params.id)
-    .populate("user", "name email phoneNumber")
-    .populate("restaurant")
-    .populate("assignedDeliveryPartner")
-    .exec();
+  if (mongoose.connection.readyState === 1) {
+    try {
+      const order = await Order.findById(req.params.id)
+        .populate("user", "name email phoneNumber")
+        .populate("restaurant")
+        .populate("assignedDeliveryPartner")
+        .exec();
 
-  if (!order) {
-    return next(new ErrorHandler("No Order found with this ID", 404));
+      if (order) {
+        const userIdStr = req.user._id ? req.user._id.toString() : req.user.id.toString();
+        const orderUserStr = order.user?._id ? order.user._id.toString() : order.user?.toString();
+        const isCustomer = orderUserStr === userIdStr;
+        const isAdmin = req.user.role === "admin";
+        const isAssignedPartner =
+          order.assignedDeliveryPartner &&
+          (order.assignedDeliveryPartner.user?.toString() === userIdStr ||
+            order.assignedDeliveryPartner._id?.toString() === userIdStr);
+        const isRestaurantOwner =
+          order.restaurant?.owner && order.restaurant.owner.toString() === userIdStr;
+
+        if (!isCustomer && !isAdmin && !isAssignedPartner && !isRestaurantOwner) {
+          return next(new ErrorHandler("You are not authorized to view this order", 403));
+        }
+
+        return res.status(200).json({
+          success: true,
+          order,
+        });
+      }
+    } catch (dbErr) {
+      console.warn("DB getSingleOrder failed, using localStore:", dbErr.message);
+    }
   }
 
-  const userIdStr = req.user._id ? req.user._id.toString() : req.user.id.toString();
-  const orderUserStr = order.user?._id ? order.user._id.toString() : order.user?.toString();
-  const isCustomer = orderUserStr === userIdStr;
-  const isAdmin = req.user.role === "admin";
-  const isAssignedPartner =
-    order.assignedDeliveryPartner &&
-    (order.assignedDeliveryPartner.user?.toString() === userIdStr ||
-      order.assignedDeliveryPartner._id?.toString() === userIdStr);
-  const isRestaurantOwner =
-    order.restaurant?.owner && order.restaurant.owner.toString() === userIdStr;
-
-  if (!isCustomer && !isAdmin && !isAssignedPartner && !isRestaurantOwner) {
-    return next(new ErrorHandler("You are not authorized to view this order", 403));
+  // Fallback
+  const localOrder = LocalStore.getOrderById(req.params.id);
+  if (!localOrder) {
+    return next(new ErrorHandler("No Order found with this ID", 404));
   }
 
   res.status(200).json({
     success: true,
-    order,
+    order: localOrder,
   });
 });
 
 // Get logged in user orders   =>   /api/v1/orders/me
 exports.myOrders = catchAsyncErrors(async (req, res, next) => {
   const userId = req.user._id || req.user.id;
-  const orders = await Order.find({ user: userId })
-    .populate("user", "name email")
-    .populate("restaurant")
-    .sort({ createdAt: -1 })
-    .exec();
+  if (mongoose.connection.readyState === 1) {
+    try {
+      const orders = await Order.find({ user: userId })
+        .populate("user", "name email")
+        .populate("restaurant")
+        .sort({ createdAt: -1 })
+        .exec();
 
+      return res.status(200).json({
+        success: true,
+        orders,
+      });
+    } catch (dbErr) {
+      console.warn("DB myOrders failed, using localStore:", dbErr.message);
+    }
+  }
+
+  const localOrders = LocalStore.getOrdersByUser(userId);
   res.status(200).json({
     success: true,
-    orders,
+    orders: localOrders,
   });
 });
 

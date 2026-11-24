@@ -88,8 +88,20 @@ const FoodItem = require("../models/fooditem");
 // 👉 If error comes → bodyguard handles it
 const catchAsync = require("../middlewares/catchAsyncErrors");
 
+const mongoose = require("mongoose");
+
 // GET ALL MENUS
 exports.getAllMenus = catchAsync(async (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    const sampleMenus = require("../sampleMenus.json");
+    const rId = req.params.id;
+    const fallbackMenus = rId ? (sampleMenus[rId] || []) : Object.values(sampleMenus).flat();
+    return res.status(200).json({
+      status: "success",
+      count: fallbackMenus.length,
+      data: fallbackMenus,
+    });
+  }
 
   const filter = req.params.id
     ? { restaurant: req.params.id }

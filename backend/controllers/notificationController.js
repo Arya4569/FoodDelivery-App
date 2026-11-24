@@ -11,6 +11,18 @@ exports.getMyNotifications = catchAsyncErrors(async (req, res, next) => {
   const limit = Math.max(1, Math.min(50, parseInt(req.query.limit, 10) || 15));
   const skip = (page - 1) * limit;
 
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(200).json({
+      success: true,
+      count: 0,
+      totalCount: 0,
+      unreadCount: 0,
+      totalPages: 0,
+      currentPage: page,
+      notifications: [],
+    });
+  }
+
   const totalCount = await Notification.countDocuments({ user: req.user._id });
   const unreadCount = await Notification.countDocuments({
     user: req.user._id,
@@ -38,6 +50,13 @@ exports.getMyNotifications = catchAsyncErrors(async (req, res, next) => {
  * Get unread notification count for the authenticated user
  */
 exports.getUnreadCount = catchAsyncErrors(async (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(200).json({
+      success: true,
+      count: 0,
+    });
+  }
+
   const count = await Notification.countDocuments({
     user: req.user._id,
     isRead: false,

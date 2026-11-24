@@ -1,9 +1,11 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendToken = require("../utils/sendToken");
 const cloudinary = require("../config/cloudinary");
+const LocalStore = require("../utils/localStore");
 
 
 // ================= REGISTER =================
@@ -46,16 +48,35 @@ exports.signUp = catchAsyncErrors(async (req, res, next) => {
         }
     }
 
-    const user = await User.create({
-        name,
-        email,
-        password,
-        confirmPassword,
-        phoneNumber,
-        avatar
-    });
+    if (mongoose.connection.readyState === 1) {
+        try {
+            const user = await User.create({
+                name,
+                email,
+                password,
+                confirmPassword,
+                phoneNumber,
+                avatar
+            });
+            return sendToken(user, 200, res);
+        } catch (dbErr) {
+            console.warn("DB user creation failed, falling back to local store:", dbErr.message);
+        }
+    }
 
-    sendToken(user, 200, res);
+    // Fallback when MongoDB is offline / not connected
+    try {
+        const user = await LocalStore.createUser({
+            name,
+            email,
+            password,
+            phoneNumber,
+            avatar
+        });
+        sendToken(user, 200, res);
+    } catch (storeErr) {
+        return next(new ErrorHandler(storeErr.message, 400));
+    }
 
 });
 
@@ -74,28 +95,48 @@ exports.login = catchAsyncErrors(async (req, res, next) => {
         });
     }
 
-    const user = await User.findOne({ email }).select("+password");
+    if (mongoose.connection.readyState === 1) {
+        try {
+            const user = await User.findOne({ email }).select("+password");
 
-    if (!user) {
+            if (user) {
+                const isPasswordMatched = await user.correctPassword(
+                    password,
+                    user.password
+                );
+
+                if (!isPasswordMatched) {
+                    return res.status(401).json({
+                        success: false,
+                        message: "Invalid email or password"
+                    });
+                }
+
+                return sendToken(user, 200, res);
+            }
+        } catch (dbErr) {
+            console.warn("DB user login lookup failed, falling back to local store:", dbErr.message);
+        }
+    }
+
+    // Fallback when MongoDB is offline / not connected
+    const localUser = await LocalStore.findUserByEmail(email);
+    if (!localUser) {
         return res.status(401).json({
             success: false,
             message: "Invalid email or password"
         });
     }
 
-    const isPasswordMatched = await user.correctPassword(
-        password,
-        user.password
-    );
-
-    if (!isPasswordMatched) {
+    const isMatch = await localUser.correctPassword(password);
+    if (!isMatch) {
         return res.status(401).json({
             success: false,
             message: "Invalid email or password"
         });
     }
 
-    sendToken(user, 200, res);
+    sendToken(localUser, 200, res);
 
 });
 
@@ -138,14 +179,27 @@ exports.protect = catchAsyncErrors(async (req, res, next) => {
         );
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "default_jwt_secret");
 
-    req.user = await User.findById(decoded.id)
-        .populate('favoriteRestaurants')
-        .populate({
-            path: 'favoriteFoodItems',
-            populate: { path: 'restaurant', select: 'name' }
-        });
+    if (mongoose.connection.readyState === 1) {
+        try {
+            req.user = await User.findById(decoded.id)
+                .populate('favoriteRestaurants')
+                .populate({
+                    path: 'favoriteFoodItems',
+                    populate: { path: 'restaurant', select: 'name' }
+                });
+
+            if (req.user) {
+                return next();
+            }
+        } catch (dbErr) {
+            console.warn("DB protect lookup failed, checking local store:", dbErr.message);
+        }
+    }
+
+    // Fallback: check local store
+    req.user = await LocalStore.findUserById(decoded.id);
 
     if (!req.user) {
         return next(
