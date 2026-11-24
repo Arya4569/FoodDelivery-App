@@ -232,6 +232,24 @@ exports.getMe = catchAsyncErrors(async (req, res, next) => {
 
 exports.toggleFavouriteRestaurant = catchAsyncErrors(async (req, res, next) => {
     const restaurantId = req.params.id;
+
+    if (mongoose.connection.readyState !== 1) {
+        let user = LocalStore.findUserById(req.user.id || req.user._id) || req.user;
+        user.favoriteRestaurants = user.favoriteRestaurants || [];
+        const index = user.favoriteRestaurants.findIndex(r => (r._id || r) === restaurantId);
+        if (index > -1) {
+            user.favoriteRestaurants.splice(index, 1);
+        } else {
+            user.favoriteRestaurants.push(restaurantId);
+        }
+        LocalStore.saveUser(user);
+        return res.status(200).json({
+            success: true,
+            message: index > -1 ? "Removed from favourite restaurants" : "Added to favourite restaurants",
+            user
+        });
+    }
+
     const user = await User.findById(req.user.id);
 
     const index = user.favoriteRestaurants.indexOf(restaurantId);
@@ -263,6 +281,24 @@ exports.toggleFavouriteRestaurant = catchAsyncErrors(async (req, res, next) => {
 
 exports.toggleFavouriteFoodItem = catchAsyncErrors(async (req, res, next) => {
     const foodItemId = req.params.id;
+
+    if (mongoose.connection.readyState !== 1) {
+        let user = LocalStore.findUserById(req.user.id || req.user._id) || req.user;
+        user.favoriteFoodItems = user.favoriteFoodItems || [];
+        const index = user.favoriteFoodItems.findIndex(f => (f._id || f) === foodItemId);
+        if (index > -1) {
+            user.favoriteFoodItems.splice(index, 1);
+        } else {
+            user.favoriteFoodItems.push(foodItemId);
+        }
+        LocalStore.saveUser(user);
+        return res.status(200).json({
+            success: true,
+            message: index > -1 ? "Removed from favourite food items" : "Added to favourite food items",
+            user
+        });
+    }
+
     const user = await User.findById(req.user.id);
 
     if (!user.favoriteFoodItems) {
@@ -297,6 +333,17 @@ exports.toggleFavouriteFoodItem = catchAsyncErrors(async (req, res, next) => {
 // ================= GET WISHLIST =================
 
 exports.getWishlist = catchAsyncErrors(async (req, res, next) => {
+    if (mongoose.connection.readyState !== 1) {
+        const user = LocalStore.findUserById(req.user.id || req.user._id) || req.user;
+        return res.status(200).json({
+            success: true,
+            wishlist: {
+                restaurants: user.favoriteRestaurants || [],
+                foodItems: user.favoriteFoodItems || []
+            }
+        });
+    }
+
     const user = await User.findById(req.user.id)
         .populate('favoriteRestaurants')
         .populate({

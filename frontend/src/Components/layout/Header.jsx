@@ -78,7 +78,9 @@ const Header = () => {
     0
   );
 
-  const wishlistCount = user?.favoriteRestaurants?.length || 0;
+  const wishlistCount =
+    (user?.favoriteRestaurants?.length || 0) +
+    (user?.favoriteFoodItems?.length || 0);
 
   // Real-time location auto-detect on initial load if not yet saved
   useEffect(() => {

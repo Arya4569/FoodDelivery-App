@@ -20,18 +20,12 @@ const isStaticHost =
 const handleStaticHostRequest = async (config) => {
   const method = (config.method || 'get').toLowerCase();
   const rawUrl = config.url || '';
-  
-  // Safely strip any domain, /api, /v1, and leading slashes
-  let cleanPath = rawUrl.replace(/^https?:\/\/[^/]+/, '').split('?')[0];
-  while (
-    cleanPath.startsWith('/api') ||
-    cleanPath.startsWith('api') ||
-    cleanPath.startsWith('/v1') ||
-    cleanPath.startsWith('v1') ||
-    cleanPath.startsWith('/')
-  ) {
-    cleanPath = cleanPath.replace(/^\/?(?:api|v1)(?=\/|$)/, '').replace(/^\/+/, '');
-  }
+  // Strip baseURL or leading /api /v1
+  const cleanPath = rawUrl
+    .replace(/^https?:\/\/[^/]+/, '')
+    .replace(/^\/?api\/?/, '')
+    .replace(/^\/?v1\/?/, '')
+    .split('?')[0];
 
   let responseData = { success: true };
 
@@ -237,7 +231,33 @@ const handleStaticHostRequest = async (config) => {
     if (existingIdx > -1) {
       user.favoriteFoodItems.splice(existingIdx, 1);
     } else {
-      const foodObj = allFoodItems.find(f => f._id === fId) || { _id: fId, name: 'Favorite Dish' };
+      let foodObj = body.foodItem;
+      if (!foodObj) {
+        foodObj = allFoodItems.find(f => f._id === fId);
+      }
+      if (!foodObj) {
+        for (const rId of Object.keys(allMenus)) {
+          for (const m of (allMenus[rId] || [])) {
+            const found = (m.foodItems || []).find(fi => fi._id === fId);
+            if (found) {
+              const rest = allRestaurants.find(r => r._id === rId) || { _id: rId, name: 'Restaurant' };
+              foodObj = { ...found, restaurant: rest };
+              break;
+            }
+          }
+          if (foodObj) break;
+        }
+      }
+      if (!foodObj) {
+        foodObj = {
+          _id: fId,
+          name: 'Special Dish',
+          price: 199,
+          ratings: 4.5,
+          image: [{ url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400' }],
+          restaurant: { _id: 'rest_default', name: 'Gourmet Kitchen' }
+        };
+      }
       user.favoriteFoodItems.push(foodObj);
     }
     localStorage.setItem('demo_user', JSON.stringify(user));
@@ -308,15 +328,6 @@ const handleStaticHostRequest = async (config) => {
       success: true,
       orders: existing,
     };
-  } else if (cleanPath.startsWith('eats/orders/') && cleanPath.endsWith('/status')) {
-    const orderId = cleanPath.split('/')[2];
-    const existing = JSON.parse(localStorage.getItem('demo_orders') || '[]');
-    const found = existing.find(o => o._id === orderId);
-    if (found) {
-      found.orderStatus = body.orderStatus || 'Delivered';
-      localStorage.setItem('demo_orders', JSON.stringify(existing));
-    }
-    responseData = { success: true, order: found };
   } else if (cleanPath.startsWith('eats/orders/')) {
     const orderId = cleanPath.split('/')[2];
     const existing = JSON.parse(localStorage.getItem('demo_orders') || '[]');
@@ -363,7 +374,7 @@ const handleStaticHostRequest = async (config) => {
     };
   }
 
-  // 8. DELIVERY PARTNER DASHBOARD & ADMIN
+  // 8. DELIVERY PARTNER DASHBOARD (SAFE MOCKS)
   else if (cleanPath === 'delivery/profile/me') {
     responseData = {
       success: true,
@@ -373,34 +384,9 @@ const handleStaticHostRequest = async (config) => {
         phoneNumber: '9876543210',
         vehicleType: 'Electric Scooter',
         vehicleNumber: 'MH 12 AB 4567',
-        verificationStatus: 'approved',
         isOnline: true,
-        availabilityStatus: 'Available',
         rating: 4.9,
         totalDeliveries: 142,
-      },
-    };
-  } else if (cleanPath === 'delivery/availability') {
-    responseData = {
-      success: true,
-      isOnline: body.isOnline !== undefined ? body.isOnline : true,
-      availabilityStatus: body.isOnline ? 'Available' : 'Offline',
-      message: `Status updated to ${body.isOnline ? 'Online' : 'Offline'}`,
-    };
-  } else if (cleanPath === 'delivery/register') {
-    responseData = {
-      success: true,
-      message: 'Delivery partner registered successfully!',
-      deliveryPartner: {
-        _id: 'partner_' + Date.now(),
-        name: 'Demo Partner',
-        phoneNumber: body.phone || '9876543210',
-        vehicleType: body.vehicleType || 'Bike / Motorcycle',
-        vehicleNumber: body.vehicleNumber || 'MH 12 AB 1234',
-        verificationStatus: 'approved',
-        isOnline: true,
-        rating: 5.0,
-        totalDeliveries: 0,
       },
     };
   } else if (cleanPath.startsWith('delivery/orders/available')) {
@@ -414,114 +400,21 @@ const handleStaticHostRequest = async (config) => {
           finalTotal: 480,
           orderStatus: "Ready for Pickup",
           distance: "2.4 km",
-          estimatedEarnings: 65,
-        },
-        {
-          _id: 'ord_avail_2',
-          restaurant: { name: "Mani's Dum Biryani", address: "FC Road, Pune" },
-          deliveryInfo: { address: "504 Shivaji Nagar", city: "Pune" },
-          finalTotal: 620,
-          orderStatus: "Ready for Pickup",
-          distance: "3.1 km",
-          estimatedEarnings: 80,
+          payout: 65,
         }
       ],
     };
-  } else if (cleanPath.startsWith('delivery/orders/my-deliveries') || cleanPath.startsWith('delivery/orders/assigned')) {
+  } else if (cleanPath.startsWith('delivery/orders/assigned')) {
     responseData = {
       success: true,
       orders: [],
     };
-  } else if (cleanPath.startsWith('delivery/orders/') && cleanPath.endsWith('/track')) {
-    responseData = {
-      success: true,
-      tracking: {
-        orderId: cleanPath.split('/')[2],
-        status: 'Out for Delivery',
-        partnerLocation: {
-          latitude: 18.5204,
-          longitude: 73.8567,
-          heading: 45,
-          speed: 28,
-          updatedAt: new Date(),
-        },
-        deliveryOtp: '4589',
-        deliveryPartner: {
-          name: 'Rahul Sharma',
-          phoneNo: '+91 98765 43210',
-          rating: 4.9,
-          vehicleNumber: 'MH 12 AB 4567 (Electric Scooter)',
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-        },
-      },
-    };
-  } else if (cleanPath.startsWith('delivery/orders/') && (cleanPath.endsWith('/pickup') || cleanPath.endsWith('/out-for-delivery') || cleanPath.endsWith('/deliver'))) {
-    responseData = {
-      success: true,
-      message: 'Status updated successfully',
-      earningsEarned: 65,
-    };
-  } else if (cleanPath === 'delivery/location') {
-    responseData = {
-      success: true,
-      message: 'Location received',
-    };
-  } else if (cleanPath === 'delivery/admin/partners') {
-    responseData = {
-      success: true,
-      partners: [
-        {
-          _id: 'partner_demo_1',
-          name: 'Rahul Sharma',
-          email: 'rahul.delivery@foodie.com',
-          phoneNumber: '9876543210',
-          vehicleType: 'Electric Scooter',
-          vehicleNumber: 'MH 12 AB 4567',
-          verificationStatus: 'approved',
-          isOnline: true,
-          totalDeliveries: 142,
-        },
-      ],
-    };
-  } else if (cleanPath.startsWith('delivery/admin/partners/') && cleanPath.endsWith('/verify')) {
-    responseData = {
-      success: true,
-      message: `Partner status updated to ${body.status || 'approved'}`,
-    };
-  } else if (cleanPath.startsWith('delivery/admin/orders/') && cleanPath.endsWith('/assign')) {
-    responseData = {
-      success: true,
-      message: 'Order successfully assigned to delivery partner',
-    };
   } else if (cleanPath.startsWith('delivery/earnings')) {
     responseData = {
       success: true,
-      earnings: {
-        totalEarnings: 4200,
-        pendingPayout: 650,
-        completedPayout: 3550,
-        totalCompletedDeliveries: 38,
-        todayEarnings: 480,
-        todayDeliveriesCount: 4,
-        history: [
-          {
-            _id: 'earn_1',
-            date: new Date().toISOString(),
-            orderId: 'ord_101',
-            amount: 120,
-            restaurantName: "Domino's Pizza",
-            status: 'Credited',
-          },
-          {
-            _id: 'earn_2',
-            date: new Date(Date.now() - 86400000).toISOString(),
-            orderId: 'ord_102',
-            amount: 140,
-            restaurantName: "Mani's Dum Biryani",
-            status: 'Credited',
-          },
-        ],
-      },
+      todayEarnings: 850,
+      weekEarnings: 5200,
+      tripsCompleted: 12,
     };
   }
 

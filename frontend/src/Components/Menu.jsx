@@ -26,8 +26,15 @@ const Menu = () => {
 
   const [menuSearch, setMenuSearch] = useState("");
   const [menuVegOnly, setMenuVegOnly] = useState(false);
+  const [dismissCartBar, setDismissCartBar] = useState(false);
 
   const [restaurantDetail, setRestaurantDetail] = useState(null);
+
+  useEffect(() => {
+    if (totalCartCount === 0) {
+      setDismissCartBar(false);
+    }
+  }, [totalCartCount]);
 
   useEffect(() => {
     dispatch(getMenus(id));
@@ -250,8 +257,8 @@ const Menu = () => {
         </div>
       )}
 
-      {/* 4. Sticky Floating "View Cart" Bar (Swiggy / Zomato style) */}
-      {totalCartCount > 0 && (
+      {/* 4. Sticky Floating "View Cart" Bar (Swiggy / Zomato style with Dismiss Option) */}
+      {totalCartCount > 0 && !dismissCartBar && (
         <div className="sticky-bottom-cart-bar shadow-lg p-3 rounded-4 bg-dark text-white d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
             <span className="cart-floating-icon me-3 bg-success rounded-circle p-2">
@@ -264,9 +271,20 @@ const Menu = () => {
               <small className="text-white-50">Extra charges may apply</small>
             </div>
           </div>
-          <Link to="/cart" className="btn btn-success fw-bold px-4 rounded-pill d-flex align-items-center">
-            View Cart <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
-          </Link>
+          <div className="d-flex align-items-center gap-2">
+            <Link to="/cart" className="btn btn-success fw-bold px-4 rounded-pill d-flex align-items-center">
+              View Cart <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
+            </Link>
+            <button
+              type="button"
+              className="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center text-white"
+              style={{ width: "32px", height: "32px", border: "1px solid rgba(255,255,255,0.3)" }}
+              onClick={() => setDismissCartBar(true)}
+              title="Dismiss cart bar"
+            >
+              ✕
+            </button>
+          </div>
         </div>
       )}
     </div>

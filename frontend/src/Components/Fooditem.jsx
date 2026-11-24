@@ -40,12 +40,13 @@ const Fooditem = ({ fooditem, restaurant }) => {
 
   const wishlistToggleHandler = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     if (!isAuthenticated) {
       toast.error("Please login to save to wishlist");
       navigate("/login");
       return;
     }
-    dispatch(toggleFavFoodItem(fooditem._id));
+    dispatch(toggleFavFoodItem(fooditem._id, fooditem));
     if (isFavorite) {
       toast.info(`Removed ${fooditem.name} from Wishlist`);
     } else {
@@ -172,6 +173,7 @@ const Fooditem = ({ fooditem, restaurant }) => {
               className="btn wishlist-mini-btn position-absolute top-0 end-0 m-1"
               onClick={wishlistToggleHandler}
               title={isFavorite ? "Remove from Wishlist" : "Add to Wishlist"}
+              style={{ zIndex: 10, cursor: "pointer" }}
             >
               <FontAwesomeIcon
                 icon={faHeart}

@@ -17,6 +17,7 @@ import {
   toggleFavFoodItem,
 } from "../../redux/actions/userActions";
 import { addItemToCart } from "../../redux/actions/cartActions";
+import { getFoodItemImage } from "../../utils/foodImages";
 import Loader from "../layout/Loader";
 import Message from "../Message";
 import { toast } from "react-toastify";
@@ -123,10 +124,17 @@ const Wishlist = () => {
                 <div key={item._id} className="col-12 col-sm-6 col-md-4 col-lg-3 my-3">
                   <div className="card h-100 shadow-sm border-0 rounded-lg overflow-hidden position-relative wishlist-card">
                     <img
-                      src={item.image?.[0]?.url || item.images?.[0]?.url || "/images/placeholder.png"}
+                      src={getFoodItemImage(
+                        item.name,
+                        item.image?.[0]?.url || item.images?.[0]?.url || (typeof item.image === "string" ? item.image : "")
+                      )}
                       alt={item.name}
                       className="card-img-top food-image"
                       style={{ height: "180px", objectFit: "cover" }}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = getFoodItemImage(item.name, "");
+                      }}
                     />
                     <div className="card-body d-flex flex-column p-3">
                       <div className="d-flex justify-content-between align-items-start">

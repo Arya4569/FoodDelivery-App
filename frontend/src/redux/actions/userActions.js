@@ -205,10 +205,13 @@ export const toggleFavRestaurant = (id) => async (dispatch) => {
     }
 };
 
-export const toggleFavFoodItem = (id) => async (dispatch) => {
+export const toggleFavFoodItem = (id, foodItemData = null) => async (dispatch) => {
     try {
         dispatch(wishlistRequest());
-        const { data } = await api.post(`/v1/users/wishlist/fooditem/${id}`);
+        const { data } = await api.post(
+            `/v1/users/wishlist/fooditem/${id}`,
+            foodItemData ? { foodItem: foodItemData } : {}
+        );
         dispatch(userSuccess(data.user));
         dispatch(fetchWishlist());
     } catch (error) {
