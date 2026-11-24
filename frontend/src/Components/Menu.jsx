@@ -24,6 +24,18 @@ const Menu = () => {
   const { restaurants = [] } = useSelector((state) => state.restaurants);
   const { cartItems = [] } = useSelector((state) => state.carts || {});
 
+  // Calculate cart total & items count
+  const totalCartCount = useMemo(() => {
+    return cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0);
+  }, [cartItems]);
+
+  const totalCartPrice = useMemo(() => {
+    return cartItems.reduce((acc, item) => {
+      const price = item.foodItem?.price || 0;
+      return acc + (item.quantity || 1) * price;
+    }, 0);
+  }, [cartItems]);
+
   const [menuSearch, setMenuSearch] = useState("");
   const [menuVegOnly, setMenuVegOnly] = useState(false);
   const [dismissCartBar, setDismissCartBar] = useState(false);
@@ -69,18 +81,6 @@ const Menu = () => {
       }
     );
   }, [restaurantDetail, restaurants, id]);
-
-  // Calculate cart total & items count
-  const totalCartCount = useMemo(() => {
-    return cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0);
-  }, [cartItems]);
-
-  const totalCartPrice = useMemo(() => {
-    return cartItems.reduce((acc, item) => {
-      const price = item.foodItem?.price || 0;
-      return acc + (item.quantity || 1) * price;
-    }, 0);
-  }, [cartItems]);
 
   // Filter food items based on veg-only and in-menu search
   const filteredMenus = useMemo(() => {
